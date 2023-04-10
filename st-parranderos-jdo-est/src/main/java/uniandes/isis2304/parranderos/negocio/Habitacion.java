@@ -1,43 +1,41 @@
 package uniandes.isis2304.parranderos.negocio;
 
-
-
-public class Habitacion implements VOHabitacion
-{
-	/* ****************************************************************
-	 * 			Atributos
+public class Habitacion implements VOHabitacion {
+	/*
+	 * ****************************************************************
+	 * Atributos
 	 *****************************************************************/
 	/**
 	 * El identificador ÚNICO de la habitacion
 	 */
 	private long id;
-	
+
 	/**
-	 * El tipo de la habitacion  ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')
+	 * El tipo de la habitacion ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes',
+	 * 'AlquilaDia', 'ResidenciaUniversitaria')
 	 */
 	private String tipo;
-	
-	
 
-	/* ****************************************************************
-	 * 			Métodos
+	/*
+	 * ****************************************************************
+	 * Métodos
 	 *****************************************************************/
 	/**
 	 * Constructor por defecto
 	 */
-	public Habitacion() 
-	{
+	public Habitacion() {
 		this.id = 0;
 		this.tipo = "";
 	}
 
 	/**
 	 * Constructor con valores
-	 * @param id - El id de la habitacion
-	 * @param nombre - El tipo de la habitacion ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')
+	 * 
+	 * @param id     - El id de la habitacion
+	 * @param nombre - El tipo de la habitacion ('Hotel', 'Hostal', 'Fenicia',
+	 *               'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')
 	 */
-	public Habitacion(long id, String tipo)
-	{
+	public Habitacion(long id, String tipo) {
 		this.id = id;
 		this.tipo = tipo;
 	}
@@ -45,32 +43,28 @@ public class Habitacion implements VOHabitacion
 	/**
 	 * @return El id de la habitacion
 	 */
-	public long getId() 
-	{
+	public long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id - El nuevo id de la habitacion
 	 */
-	public void setId(long id) 
-	{
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	/**
 	 * @return El tipo de la habitacion
 	 */
-	public String getTipo() 
-	{
+	public String getTipo() {
 		return tipo;
 	}
 
 	/**
 	 * @param tipo - El nuevo tipo de la habitacion
 	 */
-	public void setTipo(String tipo) 
-	{
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
@@ -78,10 +72,8 @@ public class Habitacion implements VOHabitacion
 	 * @return Una cadena con la información básica de la habitacion
 	 */
 	@Override
-	public String toString() 
-	{
-		return "Habitacio [id=" + id + ", tipo=" + tipo + "]";
+	public String toString() {
+		return "Habitacion [id=" + id + ", tipo=" + tipo + "]";
 	}
 
 }
-
