@@ -1,6 +1,5 @@
 package uniandes.isis2304.parranderos.persistencia;
 
-import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.List;
 

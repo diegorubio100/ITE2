@@ -19,10 +19,13 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.parranderos.negocio.VinculadoUniandes;
 import uniandes.isis2304.parranderos.negocio.Habitacion;
-import uniandes.isis2304.parranderos.negocio.Hostal;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.Disponibilidad;
 import uniandes.isis2304.parranderos.negocio.Hotel;
+import uniandes.isis2304.parranderos.negocio.Hostal;
+import uniandes.isis2304.parranderos.negocio.Fenicia;
+import uniandes.isis2304.parranderos.negocio.AlquilaDia;
+import uniandes.isis2304.parranderos.negocio.AlquilaMes;
 
 public class PersistenciaAlohandes {
 	/*
@@ -1233,6 +1236,419 @@ public class PersistenciaAlohandes {
 	 */
 	public List<Hostal> darHostales() {
 		return sqlHostal.darHostales(pmf.getPersistenceManager());
+	}
+
+	/*
+	 * ****************************************************************
+	 * Métodos para manejar Fenicia
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla
+	 * Fenicia
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre de vinculado
+	 * 
+	 * @return El objeto Fenicia adicionado. null si ocurre alguna
+	 *         Excepción
+	 */
+	public Fenicia adicionarFenicia(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idFenicia = nextval();
+			long tuplasInsertadas = sqlFenicia.adicionarFenicia(pm, idFenicia, nombre);
+			tx.commit();
+
+			log.trace("Inserción deL vinculado: " + idFenicia + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Fenicia(idFenicia, nombre);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * Fenicia, dado el nombre del Fenicia
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre del Fenicia
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarFeniciaPorNombre(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlFenicia.eliminarFeniciaPorNombre(pm, nombre);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * Fenicia, dado el nombre del Fenicia
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idFenicia - El nombre del Fenicia
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarFeniciaPorId(long idFenicia) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlFenicia.eliminarFeniciaPorId(pm, idFenicia);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Fenicia con un
+	 * identificador dado
+	 * 
+	 * @param idFenicia - El identificador del vinculado
+	 * @return El objeto Fenicia, construido con base en las tuplas de la
+	 *         tabla Fenicia con el identificador dado
+	 */
+	public Fenicia darFeniciaPorId(long idFenicia) {
+		return sqlFenicia.darFeniciaPorId(pmf.getPersistenceManager(), idFenicia);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Fenicia con un
+	 * nombre dado
+	 * 
+	 * @param nombre - El nombre del vinculado
+	 * @return El objeto Fenicia, construido con base en las tuplas de la
+	 *         tabla Fenicia con el nombre dado
+	 */
+	public List<Fenicia> darFeniciaesPorNombre(String nombre) {
+		return sqlFenicia.darFeniciasPorNombre(pmf.getPersistenceManager(), nombre);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Fenicia
+	 * 
+	 * @return La lista de objetos Fenicia, construidos con base en las
+	 *         tuplas de la tabla Fenicia
+	 */
+	public List<Fenicia> darFeniciaes() {
+		return sqlFenicia.darFenicias(pmf.getPersistenceManager());
+	}
+
+	/*
+	 * ****************************************************************
+	 * Métodos para manejar AlquilaMes
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla
+	 * AlquilaMes
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre    - El nombre de vinculado
+	 * @param idMiembro
+	 * 
+	 * @return El objeto AlquilaMes adicionado. null si ocurre alguna
+	 *         Excepción
+	 */
+	public AlquilaMes adicionarAlquilaMes(String nombre, long idMiembro) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idAlquilaMes = nextval();
+			long tuplasInsertadas = sqlAlquilaMes.adicionarAlquilaMes(pm, idAlquilaMes, nombre, idMiembro);
+			tx.commit();
+
+			log.trace("Inserción deL vinculado: " + idAlquilaMes + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new AlquilaMes(idAlquilaMes, nombre, idMiembro);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * AlquilaMes, dado el nombre del AlquilaMes
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre del AlquilaMes
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarAlquilaMesPorNombre(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlAlquilaMes.eliminarAlquilaMesPorNombre(pm, nombre);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * AlquilaMes, dado el nombre del AlquilaMes
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idAlquilaMes - El nombre del AlquilaMes
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarAlquilaMesPorId(long idAlquilaMes) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlAlquilaMes.eliminarAlquilaMesPorId(pm, idAlquilaMes);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaMes con un
+	 * identificador dado
+	 * 
+	 * @param idAlquilaMes - El identificador del vinculado
+	 * @return El objeto AlquilaMes, construido con base en las tuplas de la
+	 *         tabla AlquilaMes con el identificador dado
+	 */
+	public AlquilaMes darAlquilaMesPorId(long idAlquilaMes) {
+		return sqlAlquilaMes.darAlquilaMesPorId(pmf.getPersistenceManager(), idAlquilaMes);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaMes con un
+	 * nombre dado
+	 * 
+	 * @param nombre - El nombre del vinculado
+	 * @return El objeto AlquilaMes, construido con base en las tuplas de la
+	 *         tabla AlquilaMes con el nombre dado
+	 */
+	public List<AlquilaMes> darAlquilaMesesPorNombre(String nombre) {
+		return sqlAlquilaMes.darAlquilaMesesPorNombre(pmf.getPersistenceManager(), nombre);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaMes con un
+	 * identificador dado
+	 * 
+	 * @param idMiembro - El identificador del vinculado
+	 * @return El objeto AlquilaMes, construido con base en las tuplas de la
+	 *         tabla AlquilaMes con el identificador dado
+	 */
+	public AlquilaMes darAlquilaMesPorIdMiembro(long idMiembro) {
+		return sqlAlquilaMes.darAlquilaMesPorIdMiembro(pmf.getPersistenceManager(), idMiembro);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaMes
+	 * 
+	 * @return La lista de objetos AlquilaMes, construidos con base en las
+	 *         tuplas de la tabla AlquilaMes
+	 */
+	public List<AlquilaMes> darAlquilaMeses() {
+		return sqlAlquilaMes.darAlquilaMeses(pmf.getPersistenceManager());
+	}
+
+	/*
+	 * ****************************************************************
+	 * Métodos para manejar AlquilaDia
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla
+	 * AlquilaDia
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre    - El nombre de vinculado
+	 * @param idMiembro
+	 * 
+	 * @return El objeto AlquilaDia adicionado. null si ocurre alguna
+	 *         Excepción
+	 */
+	public AlquilaDia adicionarAlquilaDia(String nombre, long idMiembro) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idAlquilaDia = nextval();
+			long tuplasInsertadas = sqlAlquilaDia.adicionarAlquilaDia(pm, idAlquilaDia, nombre, idMiembro);
+			tx.commit();
+
+			log.trace("Inserción deL vinculado: " + idAlquilaDia + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new AlquilaDia(idAlquilaDia, nombre, idMiembro);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * AlquilaDia, dado el nombre del AlquilaDia
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre del AlquilaDia
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarAlquilaDiaPorNombre(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlAlquilaDia.eliminarAlquilaDiaPorNombre(pm, nombre);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * AlquilaDia, dado el nombre del AlquilaDia
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idAlquilaDia - El nombre del AlquilaDia
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarAlquilaDiaPorId(long idAlquilaDia) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlAlquilaDia.eliminarAlquilaDiaPorId(pm, idAlquilaDia);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaDia con un
+	 * identificador dado
+	 * 
+	 * @param idAlquilaDia - El identificador del vinculado
+	 * @return El objeto AlquilaDia, construido con base en las tuplas de la
+	 *         tabla AlquilaDia con el identificador dado
+	 */
+	public AlquilaDia darAlquilaDiaPorId(long idAlquilaDia) {
+		return sqlAlquilaDia.darAlquilaDiaPorId(pmf.getPersistenceManager(), idAlquilaDia);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaDia con un
+	 * nombre dado
+	 * 
+	 * @param nombre - El nombre del vinculado
+	 * @return El objeto AlquilaDia, construido con base en las tuplas de la
+	 *         tabla AlquilaDia con el nombre dado
+	 */
+	public List<AlquilaDia> darAlquilaDiasPorNombre(String nombre) {
+		return sqlAlquilaDia.darAlquilaDiasPorNombre(pmf.getPersistenceManager(), nombre);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaDia con un
+	 * identificador dado
+	 * 
+	 * @param idMiembro - El identificador del vinculado
+	 * @return El objeto AlquilaDia, construido con base en las tuplas de la
+	 *         tabla AlquilaDia con el identificador dado
+	 */
+	public AlquilaDia darAlquilaDiaPorIdMiembro(long idMiembro) {
+		return sqlAlquilaDia.darAlquilaDiaPorIdMiembro(pmf.getPersistenceManager(), idMiembro);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla AlquilaDia
+	 * 
+	 * @return La lista de objetos AlquilaDia, construidos con base en las
+	 *         tuplas de la tabla AlquilaDia
+	 */
+	public List<AlquilaDia> darAlquilaDias() {
+		return sqlAlquilaDia.darAlquilaDias(pmf.getPersistenceManager());
 	}
 
 	/*
