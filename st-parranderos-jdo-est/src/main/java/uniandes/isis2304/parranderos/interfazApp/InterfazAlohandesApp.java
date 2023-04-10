@@ -362,15 +362,16 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     }
 
 
+
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
 	/**
 	 * Muestra el log de Parranderos
 	 */
-	public void mostrarLogAlohandes ()
+	public void mostrarLogParranderos ()
 	{
-		mostrarArchivo ("alohandes.log");
+		mostrarArchivo ("parranderos.log");
 	}
 	
 	/**
@@ -385,13 +386,13 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 	 * Limpia el contenido del log de parranderos
 	 * Muestra en el panel de datos la traza de la ejecución
 	 */
-	public void limpiarLogAlohandes ()
+	public void limpiarLogParranderos ()
 	{
 		// Ejecución de la operación y recolección de los resultados
-		boolean resp = limpiarArchivo ("alohandes.log");
+		boolean resp = limpiarArchivo ("parranderos.log");
 
 		// Generación de la cadena de caracteres con la traza de la ejecución de la demo
-		String resultado = "\n\n************ Limpiando el log de alohandes ************ \n";
+		String resultado = "\n\n************ Limpiando el log de parranderos ************ \n";
 		resultado += "Archivo " + (resp ? "limpiado exitosamente" : "NO PUDO ser limpiado !!");
 		resultado += "\nLimpieza terminada";
 
@@ -427,7 +428,6 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 			long eliminados [] = alohandes.limpiarAlohandes();
 			
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
-			//ORDEN IMPORTANTE
 			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
 			resultado += eliminados [0] + " Vinculados eliminados\n";
 			resultado += "\nLimpieza terminada";
@@ -442,6 +442,76 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 		}
 	}
 	
+	/**
+	 * Muestra la presentación general del proyecto
+	 */
+	public void mostrarPresentacionGeneral ()
+	{
+		mostrarArchivo ("data/00-ST-ParranderosJDO.pdf");
+	}
+	
+	/**
+	 * Muestra el modelo conceptual de Parranderos
+	 */
+	public void mostrarModeloConceptual ()
+	{
+		mostrarArchivo ("data/Modelo Conceptual Parranderos.pdf");
+	}
+	
+	/**
+	 * Muestra el esquema de la base de datos de Parranderos
+	 */
+	public void mostrarEsquemaBD ()
+	{
+		mostrarArchivo ("data/Esquema BD Parranderos.pdf");
+	}
+	
+	/**
+	 * Muestra el script de creación de la base de datos
+	 */
+	public void mostrarScriptBD ()
+	{
+		mostrarArchivo ("data/EsquemaParranderos.sql");
+	}
+	
+	/**
+	 * Muestra la arquitectura de referencia para Parranderos
+	 */
+	public void mostrarArqRef ()
+	{
+		mostrarArchivo ("data/ArquitecturaReferencia.pdf");
+	}
+	
+	/**
+	 * Muestra la documentación Javadoc del proyectp
+	 */
+	public void mostrarJavadoc ()
+	{
+		mostrarArchivo ("doc/index.html");
+	}
+	
+	/**
+     * Muestra la información acerca del desarrollo de esta apicación
+     */
+    public void acercaDe ()
+    {
+		String resultado = "\n\n ************************************\n\n";
+		resultado += " * Universidad	de	los	Andes	(Bogotá	- Colombia)\n";
+		resultado += " * Departamento	de	Ingeniería	de	Sistemas	y	Computación\n";
+		resultado += " * Licenciado	bajo	el	esquema	Academic Free License versión 2.1\n";
+		resultado += " * \n";		
+		resultado += " * Curso: isis2304 - Sistemas Transaccionales\n";
+		resultado += " * Proyecto: Parranderos Uniandes\n";
+		resultado += " * @version 1.0\n";
+		resultado += " * @author Germán Bravo\n";
+		resultado += " * Julio de 2018\n";
+		resultado += " * \n";
+		resultado += " * Revisado por: Claudia Jiménez, Christian Ariza\n";
+		resultado += "\n ************************************\n\n";
+
+		panelDatos.actualizarInterfaz(resultado);		
+    }
+    
 
 	/* ****************************************************************
 	 * 			Métodos privados para la presentación de resultados y otras operaciones
@@ -453,7 +523,7 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
      */
     private String listarVinculadosUniandes(List<VOVinculadoUniandes> lista) 
     {
-    	String resp = "Los vinculadosuniandes existentes son:\n";
+    	String resp = "Los tipos de bebida existentes son:\n";
     	int i = 1;
         for (VOVinculadoUniandes tb : lista)
         {
