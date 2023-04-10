@@ -59,6 +59,11 @@ public class PersistenciaAlohandes {
 	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
 	 */
 	private SQLVinculadoUniandes sqlVinculadoUniandes;
+
+
+	/* ****************************************************************
+	 * 			Métodos del MANEJADOR DE PERSISTENCIA
+	 *****************************************************************/
  
     private PersistenciaAlohandes ()
 	{
@@ -67,9 +72,12 @@ public class PersistenciaAlohandes {
 		
 		// Define los nombres por defecto de las tablas de la base de datos
 		tablas = new LinkedList<String> ();
-		tablas.add ("Alohandes_sequence");
+		tablas.add ("Parranderos_sequence");
 		tablas.add ("VINCULADOUNIANDES");
     }
+
+
+	
 
     /**
 	 * Constructor privado, que recibe los nombres de las tablas en un objeto Json - Patrón SINGLETON
