@@ -17,9 +17,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.parranderos.negocio.VinculadoUniandes;
-import uniandes.isis2304.parranderos.negocio.Disponibilidad;
 import uniandes.isis2304.parranderos.negocio.Habitacion;
 import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.Disponibilidad;
+import uniandes.isis2304.parranderos.negocio.Hotel;
 
 public class PersistenciaAlohandes {
 	/*
@@ -962,6 +963,143 @@ public class PersistenciaAlohandes {
 	 */
 	public List<Disponibilidad> darDisponibilidades() {
 		return sqlDisponibilidad.darDisponibilidades(pmf.getPersistenceManager());
+	}
+
+	/*
+	 * ****************************************************************
+	 * Métodos para manejar HOTEL
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla
+	 * Hotel
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre      - El nombre de vinculado
+	 * @param restaurante - ('Y', 'N')
+	 * @param piscina     - ('Y', 'N')
+	 * @param parqueadero - ('Y', 'N')
+	 * @param wifi        - ('Y', 'N')
+	 * @param tv          - ('Y', 'N')
+	 * @param recepcion   - ('Y', 'N')
+	 * 
+	 * @return El objeto Hotel adicionado. null si ocurre alguna
+	 *         Excepción
+	 */
+	public Hotel adicionarHotel(String nombre, String restaurante, String piscina, String parqueadero, String internet,
+			String tv, String recepcion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idHotel = nextval();
+			long tuplasInsertadas = sqlHotel.adicionarHotel(pm, idHotel, nombre, restaurante, piscina, parqueadero,
+					internet, tv, recepcion);
+			tx.commit();
+
+			log.trace("Inserción deL vinculado: " + idHotel + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Hotel(idHotel, nombre, restaurante, piscina, parqueadero, internet, tv, recepcion);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * HOTEL, dado el nombre del hotel
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre del hotel
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarHotelPorNombre(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlHotel.eliminarHotelPorNombre(pm, nombre);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * HOTEL, dado el id del hotel
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idHotel - El id del hotel
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarHotelPorId(long idHotel) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlHotel.eliminarHotelPorId(pm, idHotel);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Hotel con un
+	 * identificador dado
+	 * 
+	 * @param idHotel - El identificador del vinculado
+	 * @return El objeto Hotel, construido con base en las tuplas de la
+	 *         tabla HOTEL con el identificador dado
+	 */
+	public Hotel darHotelPorId(long idHotel) {
+		return sqlHotel.darHotelPorId(pmf.getPersistenceManager(), idHotel);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Hotel con un
+	 * nombre dado
+	 * 
+	 * @param nombre - El nombre del vinculado
+	 * @return El objeto Hotel, construido con base en las tuplas de la
+	 *         tabla HOTEL con el nombre dado
+	 */
+	public List<Hotel> darHotelesPorNombre(String nombre) {
+		return sqlHotel.darHotelesPorNombre(pmf.getPersistenceManager(), nombre);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla HOTEL
+	 * 
+	 * @return La lista de objetos Hotel, construidos con base en las
+	 *         tuplas de la tabla HOTEL
+	 */
+	public List<Hotel> darHoteles() {
+		return sqlHotel.darHoteles(pmf.getPersistenceManager());
 	}
 
 	/*
