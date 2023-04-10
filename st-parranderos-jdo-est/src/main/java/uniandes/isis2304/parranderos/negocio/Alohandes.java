@@ -213,6 +213,72 @@ public class Alohandes
         return voHabitaciones;
 	}
 
+
+
+	/* ****************************************************************
+	 * 			Métodos para manejar las RESERVAS
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente una RESERVA
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombre - El nombre del tipo de bebida
+	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
+	 */
+	public Reserva adicionarReserva (long idCliente,long idHabitacion, Timestamp fechaReserva, 
+    Timestamp fechaCancelacionOportuna, Timestamp fechaCancelacion) 
+	{
+        log.info ("Adicionando Reserva idCliente, idHabitacion: " + idCliente+ idHabitacion);
+        Reserva reserva = pp.adicionarReserva(idCliente, idHabitacion, fechaReserva, fechaCancelacionOportuna, fechaCancelacion);		
+        log.info ("Adicionando Reserva: " + reserva);
+        return reserva;
+	}
+	
+	
+	/**
+	 * Elimina una reserva por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param id - El id de la reserva a eliminar
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarReservaPorId (long id)
+	{
+		log.info ("Eliminando Reserva por id: " + id);
+        long resp = pp.eliminarReservaPorId(id);		
+        log.info ("Eliminando Reserva por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	
+	/**
+	 * Encuentra todos las Reservas en Alohandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos Reserva con todos los tipos de reserva que conoce la aplicación, llenos con su información básica
+	 */
+	public List<Reserva> darReservas ()
+	{
+		log.info ("Consultando Reservas");
+        List<Reserva> reservas = pp.darReservas();	
+        log.info ("Consultando Reservas: " + reservas.size() + " existentes");
+        return reservas;
+	}
+
+	/**
+	 * Encuentra todos las reservas en Alohandes y los devuelve como una lista de VOReserva
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOReserva con todos las reservas que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOReserva> darVOReservas ()
+	{
+		log.info ("Generando los VO de Reserva");        
+        List<VOReserva> voReservas = new LinkedList<VOReserva> ();
+        for (Reserva tb : pp.darReservas())
+        {
+        	voReservas.add (tb);
+        }
+        log.info ("Generando los VO de Reservas: " + voReservas.size() + " existentes");
+        return voReservas;
+	}
+
+	
 	
 	/* ****************************************************************
 	 * 			Métodos para administración

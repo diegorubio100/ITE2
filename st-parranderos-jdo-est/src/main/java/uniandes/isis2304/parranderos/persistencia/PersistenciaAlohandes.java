@@ -17,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.parranderos.negocio.Habitacion;
+import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.VinculadoUniandes;
 
 public class PersistenciaAlohandes {
@@ -58,15 +59,20 @@ public class PersistenciaAlohandes {
 	private SQLUtil sqlUtil;
 	
 	/**
-	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
+	 * Atributo para el acceso a la tabla VINCULADO de la base de datos
 	 */
 	private SQLVinculadoUniandes sqlVinculadoUniandes;
 
 
 	/**
-	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
+	 * Atributo para el acceso a la tabla HABITACION de la base de datos
 	 */
 	private SQLHabitacion sqlHabitacion;
+
+	/**
+	 * Atributo para el acceso a la tabla RESERVA de la base de datos
+	 */
+	private SQLReserva sqlReserva;
 
 
 
@@ -85,6 +91,7 @@ public class PersistenciaAlohandes {
 		tablas.add ("Parranderos_sequence");
 		tablas.add ("VINCULADOUNIANDES");
 		tablas.add ("HABITACION");
+		tablas.add ("RESERVA");
     }
 
 
@@ -164,7 +171,8 @@ public class PersistenciaAlohandes {
 	private void crearClasesSQL ()
 	{
 		sqlVinculadoUniandes = new SQLVinculadoUniandes(this);	
-		sqlHabitacion = new SQLHabitacion(this);		
+		sqlHabitacion = new SQLHabitacion(this);
+		sqlReserva = new SQLReserva(this);		
 		sqlUtil = new SQLUtil(this);
 	}
 
@@ -184,13 +192,25 @@ public class PersistenciaAlohandes {
 		return tablas.get (1);
 	}
 
-	  /**
+	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Habitacion de alohandes
 	 */
 	public String darTablaHabitacion ()
 	{
 		return tablas.get (2);
 	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Habitacion de alohandes
+	 */
+	public String darTablaReserva ()
+	{
+		return tablas.get (3);
+	}
+
+
+
+
 
     /**
 	 * Transacción para el generador de secuencia de Parranderos
@@ -457,6 +477,111 @@ public class PersistenciaAlohandes {
 	public Habitacion darHabitacionPorId (long idHabitacion)
 	{
 		return sqlHabitacion.darHabitacionPorId(pmf.getPersistenceManager(), idHabitacion);
+	}
+
+
+
+
+/* ****************************************************************
+	 * 			Métodos para manejar las RESERVAS
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Reserva
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El identificador del cliente. Debe existir un cliente con dicho identificador
+	 * @param idHabitacion - El identificador de la habitacion. Debe exixtir una habitacion con dicho identificador
+	 * @param fechaReserva - La fecha en la cual se realiza la reserva
+     * @param fechaCancelacionOportuna - La fecha en la cual se puede cancelar la reserva
+     * @param fechaCancelacion - La fecha en la cual se cancela la reserva
+	 * @return El objeto VinculadoUniandes adicionado. null si ocurre alguna Excepción
+	 */
+	public Reserva adicionarReserva(long idCliente,long idHabitacion, Timestamp fechaReserva, 
+    Timestamp fechaCancelacionOportuna, Timestamp fechaCancelacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long id = nextval ();
+            long tuplasInsertadas = sqlReserva.adicionarReserva(pm, id, idCliente, idHabitacion, fechaReserva, 
+			fechaCancelacionOportuna, fechaCancelacion);
+            tx.commit();
+            
+            log.trace ("Inserción de reserva: " + idCliente + idHabitacion + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Reserva(id, idCliente, idHabitacion, fechaReserva,fechaCancelacionOportuna, fechaCancelacion);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla VINCULADOUNIANDES, dado el identificador de la reserva
+	 * Adiciona entradas al log de la aplicación
+	 * @param id - El identificador de la reserva
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarReservaPorId (long id) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.eliminarReservaporId(pm, id);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla RESERVA
+	 * @return La lista de objetos VinculadoUniandes, construidos con base en las tuplas de la tabla VINCULADOUNIANDES
+	 */
+	public List<Reserva> darReservas ()
+	{
+		return sqlReserva.darReservas(pmf.getPersistenceManager());
+	}
+ 
+ 
+	/**
+	 * Método que consulta todas las tuplas en la tabla Reserva con un identificador dado
+	 * @param id - El identificador de la reserva
+	 * @return El objeto VinculadoUniandes, construido con base en las tuplas de la tabla RESERVA con el identificador dado
+	 */
+	public Reserva darReservaPorId (long id)
+	{
+		return sqlReserva.darReservaPorId(pmf.getPersistenceManager(), id);
 	}
 
 

@@ -43,6 +43,23 @@
 				}
 			]
 		},
+		{ "menuTitle": "Reserva",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarReserva"
+				},
+				{
+					"label": "Listar",
+					"event": "listarReserva"
+				},
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarReservaPorId"
+				}
+			]
+		},
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[

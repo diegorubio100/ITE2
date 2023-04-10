@@ -139,3 +139,36 @@ ORA-02290: restricción de control (SYSTEM.CK_VINCULADOUNIANDES_TIPO) violada
 10:20:00,711 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Hbaitacion: Habitacio [id=28, tipo=Fenicia]
 10:20:04,375 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitacion
 10:20:04,392 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitaciones: 2 existentes
+13:36:06,341 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+13:36:06,342 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+13:36:06,371 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:37:03,236 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Vinculado Uninades: Alberto
+13:37:03,356 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando VinculadoUniandes: VinculadoUniandes [id=29, nombre=Alberto, tipo=Estudiante]
+13:37:12,719 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Habitacion: Hostal
+13:37:12,730 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Hbaitacion: Habitacio [id=30, tipo=Hostal]
+13:58:05,851 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+13:58:05,852 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+13:58:05,888 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:59:02,509 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Reserva idCliente, idHabitacion: 2930
+13:59:02,644 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Reserva: Reserva [id=31, idCliente=29, idHabitacion=30, fechaReserva=2000-12-03 00:00:00.0, fechaCancelacionOportuna=2000-12-01 00:00:00.0, fechaCancelacion=2000-12-02 00:00:00.0]
+14:04:40,327 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+14:04:40,327 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+14:04:40,343 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:04:44,113 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Reserva
+14:04:44,162 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Reservas: 1 existentes
+14:04:55,192 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Reserva por id: 31
+14:04:55,256 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Reserva por id: 1 tuplas eliminadas
+14:12:52,382 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+14:12:52,382 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+14:12:52,398 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:14:22,283 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Vinculado Uninades: Andres
+14:14:22,364 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando VinculadoUniandes: VinculadoUniandes [id=32, nombre=Andres, tipo=Estudiante]
+14:14:29,760 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Habitacion: Fenicia
+14:14:29,766 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Hbaitacion: Habitacio [id=33, tipo=Fenicia]
+14:16:12,573 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+14:16:12,573 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+14:16:12,586 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:16:33,272 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Reserva idCliente, idHabitacion: 3233
+14:16:33,383 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Reserva: Reserva [id=34, idCliente=32, idHabitacion=33, fechaReserva=2000-04-05 00:00:00.0, fechaCancelacionOportuna=2000-04-04 00:00:00.0, fechaCancelacion=2000-04-04 00:00:00.0]
+14:19:17,014 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Reserva por id: 34
+14:19:17,017 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Reserva por id: 1 tuplas eliminadas

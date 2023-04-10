@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.JDODataStoreException;
@@ -48,6 +49,7 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Alohandes;
 import uniandes.isis2304.parranderos.negocio.VOHabitacion;
+import uniandes.isis2304.parranderos.negocio.VOReserva;
 import uniandes.isis2304.parranderos.negocio.VOVinculadoUniandes;
 
 
@@ -458,29 +460,122 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 		}
     }
 
+
+
+
+	/* ****************************************************************
+	 * 			CRUD de RESERVA
+	 *****************************************************************/
+    /**
+     * Adiciona una reserva on la información dada por el usuario
+     * Se crea una nueva tupla de vinculadoUniandes en la base de datos, si un vinculado con ese nombre no existía
+     */
+    public void adicionarReserva( )
+    {
+    	try 
+    	{
+    		String idClienteStr = JOptionPane.showInputDialog(this, "ID del cliente?", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+			String idHabitacionStr = JOptionPane.showInputDialog(this, "ID de la habitación?", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+			if (idClienteStr != null || idHabitacionStr !=  null) 
+			{
+				String fechaReservaStr = JOptionPane.showInputDialog(this, "Fecha de reserva?(FORMATO YYYY-MM-DD)", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+				String fechaCancelacionOportunaStr = JOptionPane.showInputDialog(this, "Fecha de cancelación oportuna?(FORMATO YYYY-MM-DD)", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+				String fechaCancelacionStr = JOptionPane.showInputDialog(this, "Fecha de cancelación?(SI NO CANCELA DEJE VACIO)", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+				long idCliente = Long.valueOf(idClienteStr);
+				long idHabitacion = Long.valueOf(idHabitacionStr);
+			
+				java.sql.Date fechaReservaSql = java.sql.Date.valueOf(fechaReservaStr);
+				Timestamp fechaReservaTimeStamp = new Timestamp(fechaReservaSql.getTime());
+
+				java.sql.Date fechaCancelacionOportunaSql = java.sql.Date.valueOf(fechaCancelacionOportunaStr);
+				Timestamp fechaCancelacionOportunaTimeStamp = new Timestamp(fechaCancelacionOportunaSql.getTime());
+				
+				java.sql.Date fechaCancelacionSql = null;
+				Timestamp fechaCancelacionTimeStamp = null;
+
+				if (!fechaCancelacionStr.isEmpty()) {
+					fechaCancelacionSql = java.sql.Date.valueOf(fechaCancelacionStr);
+					fechaCancelacionTimeStamp = new Timestamp(fechaCancelacionSql.getTime());
+				}
+				
+        		VOReserva tb = alohandes.adicionarReserva(idCliente,idHabitacion,fechaReservaTimeStamp,fechaCancelacionOportunaTimeStamp,fechaCancelacionTimeStamp);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una reserva con idCliente, idHabitacion: " + idCliente + " " + idHabitacion);
+        		}
+        		String resultado = "En adicionarReserva\n\n";
+        		resultado += "Reserva adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+    /**
+     * Consulta en la base de datos las reservas existentes y los muestra en el panel de datos de la aplicación
+     */
+    public void listarReserva( )
+    {
+    	try 
+    	{
+			List <VOReserva> lista = alohandes.darVOReservas();
+
+			String resultado = "En listarReservas";
+			resultado +=  "\n" + listarReservas(lista); 
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+    /**
+     * Borra de la base de datos la habitacion con el identificador dado po el usuario
+     * Cuando dicho vinculado no existe, se indica que se borraron 0 registros de la base de datos
+     */
+    public void eliminarReservaPorId( )
+    {
+    	try 
+    	{
+    		String idReservaStr = JOptionPane.showInputDialog (this, "Id de la reserva?", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idReservaStr != null)
+    		{
+    			long idReserva = Long.valueOf (idReservaStr);
+    			long tbEliminados = alohandes.eliminarReservaPorId(idReserva);
+
+    			String resultado = "En eliminar Reserva\n\n";
+    			resultado += tbEliminados + " Reserva eliminados\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	/* ****************************************************************
@@ -655,13 +750,30 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 	 /**
      * Genera una cadena de caracteres con la lista de las habitaciones
      * @param lista - La lista con las habitaciones
-     * @return La cadena con una líea para cada habitacion recibido
+     * @return La cadena con una línea para cada habitacion recibido
      */
     private String listarHabitaciones(List<VOHabitacion> lista) 
     {
     	String resp = "Las habitaciones son:\n";
     	int i = 1;
         for (VOHabitacion tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+
+
+	 /**
+     * Genera una cadena de caracteres con la lista de reservas
+     * @param lista - La lista con las reservas
+     * @return La cadena con una línea para cada reserva recibida
+     */
+    private String listarReservas(List<VOReserva> lista) 
+    {
+    	String resp = "Las reservas son:\n";
+    	int i = 1;
+        for (VOReserva tb : lista)
         {
         	resp += i++ + ". " + tb.toString() + "\n";
         }
