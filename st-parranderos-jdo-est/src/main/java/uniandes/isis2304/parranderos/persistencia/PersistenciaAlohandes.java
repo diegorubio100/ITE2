@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import uniandes.isis2304.parranderos.negocio.VinculadoUniandes;
 import uniandes.isis2304.parranderos.negocio.Habitacion;
 import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.ResidenciaUniversitaria;
 import uniandes.isis2304.parranderos.negocio.Disponibilidad;
 import uniandes.isis2304.parranderos.negocio.Hotel;
 import uniandes.isis2304.parranderos.negocio.Hostal;
@@ -1649,6 +1650,144 @@ public class PersistenciaAlohandes {
 	 */
 	public List<AlquilaDia> darAlquilaDias() {
 		return sqlAlquilaDia.darAlquilaDias(pmf.getPersistenceManager());
+	}
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla
+	 * ResidenciaUniversitaria
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre            - El nombre de vinculado
+	 * @param restaurante       - ('Y', 'N')
+	 * @param salaEstudio       - ('Y', 'N')
+	 * @param salaEsparcimiento - ('Y', 'N')
+	 * @param gimnasio          - ('Y', 'N')
+	 * 
+	 * @return El objeto ResidenciaUniversitaria adicionado. null si ocurre alguna
+	 *         Excepción
+	 */
+	public ResidenciaUniversitaria adicionarResidenciaUniversitaria(String nombre, String restaurante,
+			String salaEstudio, String salaEsparcimiento, String gimnasio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idResidenciaUniversitaria = nextval();
+			long tuplasInsertadas = sqlResidenciaUniversitaria.adicionarResidenciaUniversitaria(pm,
+					idResidenciaUniversitaria, nombre, restaurante, salaEstudio, salaEsparcimiento, gimnasio);
+			tx.commit();
+
+			log.trace("Inserción deL vinculado: " + idResidenciaUniversitaria + ": " + tuplasInsertadas
+					+ " tuplas insertadas");
+
+			return new ResidenciaUniversitaria(idResidenciaUniversitaria, nombre, restaurante, salaEstudio,
+					salaEsparcimiento, gimnasio);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * ResidenciaUniversitaria, dado el nombre del ResidenciaUniversitaria
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre del ResidenciaUniversitaria
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarResidenciaUniversitariaPorNombre(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlResidenciaUniversitaria.eliminarResidenciaUniversitariaPorNombre(pm, nombre);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * ResidenciaUniversitaria, dado el id del ResidenciaUniversitaria
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idResidenciaUniversitaria - El id del ResidenciaUniversitaria
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarResidenciaUniversitariaPorId(long idResidenciaUniversitaria) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlResidenciaUniversitaria.eliminarResidenciaUniversitariaPorId(pm, idResidenciaUniversitaria);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla ResidenciaUniversitaria con
+	 * un
+	 * identificador dado
+	 * 
+	 * @param idResidenciaUniversitaria - El identificador del vinculado
+	 * @return El objeto ResidenciaUniversitaria, construido con base en las tuplas
+	 *         de la
+	 *         tabla ResidenciaUniversitaria con el identificador dado
+	 */
+	public ResidenciaUniversitaria darResidenciaUniversitariaPorId(long idResidenciaUniversitaria) {
+		return sqlResidenciaUniversitaria.darResidenciaUniversitariaPorId(pmf.getPersistenceManager(),
+				idResidenciaUniversitaria);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla ResidenciaUniversitaria con
+	 * un
+	 * nombre dado
+	 * 
+	 * @param nombre - El nombre del vinculado
+	 * @return El objeto ResidenciaUniversitaria, construido con base en las tuplas
+	 *         de la
+	 *         tabla ResidenciaUniversitaria con el nombre dado
+	 */
+	public List<ResidenciaUniversitaria> darResidenciaUniversitariasPorNombre(String nombre) {
+		return sqlResidenciaUniversitaria.darResidenciaUniversitariasPorNombre(pmf.getPersistenceManager(), nombre);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla ResidenciaUniversitaria
+	 * 
+	 * @return La lista de objetos ResidenciaUniversitaria, construidos con base en
+	 *         las
+	 *         tuplas de la tabla ResidenciaUniversitaria
+	 */
+	public List<ResidenciaUniversitaria> darResidenciaUniversitarias() {
+		return sqlResidenciaUniversitaria.darResidenciaUniversitarias(pmf.getPersistenceManager());
 	}
 
 	/*

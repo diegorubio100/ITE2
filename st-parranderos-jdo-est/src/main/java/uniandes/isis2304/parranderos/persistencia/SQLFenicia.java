@@ -56,7 +56,7 @@ public class SQLFenicia {
      */
     public long adicionarFenicia(PersistenceManager pm, long id, String nombre) {
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaFenicia()
-                + "(id, nombre, horaApertura, horaCierre) values (?, ?, ?, ?)");
+                + "(id, nombre) values (?, ?)");
         q.setParameters(id, nombre);
         return (long) q.executeUnique();
     }

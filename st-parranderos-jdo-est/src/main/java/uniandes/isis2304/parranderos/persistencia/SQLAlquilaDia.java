@@ -58,7 +58,7 @@ public class SQLAlquilaDia {
      */
     public long adicionarAlquilaDia(PersistenceManager pm, long id, String nombre, long idMiembro) {
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAlquilaDia()
-                + "(id, nombre, horaApertura, horaCierre) values (?, ?, ?, ?)");
+                + "(id, nombre, idMiembro) values (?, ?, ?)");
         q.setParameters(id, nombre, idMiembro);
         return (long) q.executeUnique();
     }
