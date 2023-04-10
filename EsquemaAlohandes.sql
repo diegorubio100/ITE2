@@ -146,7 +146,7 @@ CREATE TABLE A_HabitacionFenicia (
     tv NUMBER NOT NULL CHECK (tv >= 0),
     internet NUMBER NOT NULL CHECK (internet >= 0),
     CONSTRAINT FK_HabitacionFenicia_idHab FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
-    CONSTRAINT FK_HabitacionFenicia_idPerFenicia FOREIGN KEY (idPersonaFenicia) REFERENCES A_Fenicia (id)
+    CONSTRAINT FK_HabitacionFenicia_idPersonaFenicia FOREIGN KEY (idPersonaFenicia) REFERENCES A_Fenicia (id)
 );
 
 

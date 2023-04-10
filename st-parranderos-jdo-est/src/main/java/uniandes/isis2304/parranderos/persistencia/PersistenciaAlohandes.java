@@ -1652,6 +1652,11 @@ public class PersistenciaAlohandes {
 		return sqlAlquilaDia.darAlquilaDias(pmf.getPersistenceManager());
 	}
 
+	/*
+	 * ****************************************************************
+	 * Métodos para manejar RESIDENCIAUNIVERSITARIA
+	 *****************************************************************/
+
 	/**
 	 * Método que inserta, de manera transaccional, una tupla en la tabla
 	 * ResidenciaUniversitaria
