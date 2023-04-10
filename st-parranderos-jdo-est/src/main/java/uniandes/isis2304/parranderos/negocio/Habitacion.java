@@ -34,7 +34,7 @@ public class Habitacion implements VOHabitacion
 	/**
 	 * Constructor con valores
 	 * @param id - El id de la habitacion
-	 * @param nombre - El tipo de la habitacion ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')
+	 * @param tipo - El tipo de la habitacion ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')
 	 */
 	public Habitacion(long id, String tipo)
 	{

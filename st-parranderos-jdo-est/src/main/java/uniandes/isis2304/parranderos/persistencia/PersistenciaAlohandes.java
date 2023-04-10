@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import uniandes.isis2304.parranderos.negocio.Habitacion;
 import uniandes.isis2304.parranderos.negocio.VinculadoUniandes;
 
 public class PersistenciaAlohandes {
@@ -61,6 +63,14 @@ public class PersistenciaAlohandes {
 	private SQLVinculadoUniandes sqlVinculadoUniandes;
 
 
+	/**
+	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
+	 */
+	private SQLHabitacion sqlHabitacion;
+
+
+
+
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
 	 *****************************************************************/
@@ -74,6 +84,7 @@ public class PersistenciaAlohandes {
 		tablas = new LinkedList<String> ();
 		tablas.add ("Parranderos_sequence");
 		tablas.add ("VINCULADOUNIANDES");
+		tablas.add ("HABITACION");
     }
 
 
@@ -152,7 +163,8 @@ public class PersistenciaAlohandes {
 	 */
 	private void crearClasesSQL ()
 	{
-		sqlVinculadoUniandes = new SQLVinculadoUniandes(this);		
+		sqlVinculadoUniandes = new SQLVinculadoUniandes(this);	
+		sqlHabitacion = new SQLHabitacion(this);		
 		sqlUtil = new SQLUtil(this);
 	}
 
@@ -170,6 +182,14 @@ public class PersistenciaAlohandes {
 	public String darTablaVinculadoUniandes ()
 	{
 		return tablas.get (1);
+	}
+
+	  /**
+	 * @return La cadena de caracteres con el nombre de la tabla de Habitacion de alohandes
+	 */
+	public String darTablaHabitacion ()
+	{
+		return tablas.get (2);
 	}
 
     /**
@@ -337,6 +357,110 @@ public class PersistenciaAlohandes {
 	{
 		return sqlVinculadoUniandes.darVinculadoPorId(pmf.getPersistenceManager(), idVinculado);
 	}
+
+
+
+
+
+
+
+    /* ****************************************************************
+	 * 			Métodos para manejar las HABITACIONES
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Habitacion
+	 * Adiciona entradas al log de la aplicación
+     * @param tipo - El tipo de habitacion ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')
+	 * @return El objeto Habitacion adicionado. null si ocurre alguna Excepción
+	 */
+	public Habitacion adicionarHabitacion(String tipo)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idHabitacion = nextval ();
+            long tuplasInsertadas = sqlHabitacion.adicionarHabitacion(pm, idHabitacion, tipo);
+            tx.commit();
+            
+            log.trace ("Inserción de la habitacion: " + tipo + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Habitacion(idHabitacion,tipo);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla HABITACION, dado el identificador de habitacion
+	 * Adiciona entradas al log de la aplicación
+	 * @param idHabitacion - El identificador de habitacion
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarHabitacionPorId (long idHabitacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlHabitacion.eliminarHabitacionPorId(pm, idHabitacion);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla HABITACION
+	 * @return La lista de objetos Habitacion, construidos con base en las tuplas de la tabla HABITACION
+	 */
+	public List<Habitacion> darhHabitaciones ()
+	{
+		return sqlHabitacion.darHabitaciones(pmf.getPersistenceManager());
+	}
+ 
+ 
+	/**
+	 * Método que consulta todas las tuplas en la tabla Habitacion con un identificador dado
+	 * @param idHabitacion - El identificador de la habitacion
+	 * @return El objeto Habitacion, construido con base en las tuplas de la tabla HABITACION con el identificador dado
+	 */
+	public Habitacion darHabitacionPorId (long idHabitacion)
+	{
+		return sqlHabitacion.darHabitacionPorId(pmf.getPersistenceManager(), idHabitacion);
+	}
+
+
+
 
     /**
 	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes

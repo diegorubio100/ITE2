@@ -148,6 +148,72 @@ public class Alohandes
 	}
 
 
+
+
+
+	/* ****************************************************************
+	 * 			Métodos para manejar las HABITACIONES
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente una HABITACION
+	 * Adiciona entradas al log de la aplicación
+	 * @param TIPO - El tipo de habitacion
+	 * @return El objeto Habitaciom adicionado. null si ocurre alguna Excepción
+	 */
+	public Habitacion adicionarHabitacion (String tipo)
+	{
+        log.info ("Adicionando Habitacion: " + tipo);
+        Habitacion habitacion = pp.adicionarHabitacion (tipo);		
+        log.info ("Adicionando Hbaitacion: " + habitacion);
+        return habitacion;
+	}
+	
+
+	/**
+	 * Elimina una habitacion por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idHabitacion - El id de la habitacion a eliminar
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarHabitacionPorId (long idHabitacion)
+	{
+		log.info ("Eliminando Habitacion por id: " + idHabitacion);
+        long resp = pp.eliminarHabitacionPorId(idHabitacion);		
+        log.info ("Eliminando Habitacion por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	
+	/**
+	 * Encuentra todos las habitaciones en Alohandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos Hbaitacion 
+	 */
+	public List<Habitacion> darHabitaciones ()
+	{
+		log.info ("Consultando Habitaciones");
+        List<Habitacion> habitaciones = pp.darhHabitaciones();	
+        log.info ("Consultando Habitaciones: " + habitaciones.size() + " existentes");
+        return habitaciones;
+	}
+
+	/**
+	 * Encuentra todos las habitaciones en Alohandes y los devuelve como una lista de VOHabitacion
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOHabitacion con todos las habitaciones que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOHabitacion> darVOHabitaciones ()
+	{
+		log.info ("Generando los VO de Habitacion");        
+        List<VOHabitacion> voHabitaciones = new LinkedList<VOHabitacion> ();
+        for (Habitacion tb : pp.darhHabitaciones())
+        {
+        	voHabitaciones.add (tb);
+        }
+        log.info ("Generando los VO de Habitaciones: " + voHabitaciones.size() + " existentes");
+        return voHabitaciones;
+	}
+
+	
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
@@ -160,7 +226,7 @@ public class Alohandes
 	{
         log.info ("Limpiando la BD de Alohandes");
         long [] borrrados = pp.limpiarAlohandes();	
-        log.info ("Limpiando la BD de Parranderos: Listo!");
+        log.info ("Limpiando la BD de Alohandes: Listo!");
         return borrrados;
 	}
 }

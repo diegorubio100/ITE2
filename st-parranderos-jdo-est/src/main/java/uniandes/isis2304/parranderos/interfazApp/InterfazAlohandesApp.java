@@ -47,6 +47,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Alohandes;
+import uniandes.isis2304.parranderos.negocio.VOHabitacion;
 import uniandes.isis2304.parranderos.negocio.VOVinculadoUniandes;
 
 
@@ -363,6 +364,125 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 
 
 
+
+
+
+	/* ****************************************************************
+	 * 			CRUD de Habitacion
+	 *****************************************************************/
+    /**
+     * Adiciona un vinculadouniandes con la información dada por el usuario
+     * Se crea una nueva tupla de vinculadoUniandes en la base de datos, si un vinculado con ese nombre no existía
+     */
+    public void adicionarHabitacion( )
+    {
+    	try 
+    	{
+    		String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitación ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria')?", "Adicionar Habitacion", JOptionPane.QUESTION_MESSAGE);
+    		if (tipoHabitacion != null)
+    		{
+        		VOHabitacion tb = alohandes.adicionarHabitacion(tipoHabitacion);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una habitacion con tipo: " + tipoHabitacion);
+        		}
+        		String resultado = "En adicionarHabitacion\n\n";
+        		resultado += "Habitacion adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+    /**
+     * Consulta en la base de datos las habitaciones existentes y los muestra en el panel de datos de la aplicación
+     */
+    public void listarHabitacion( )
+    {
+    	try 
+    	{
+			List <VOHabitacion> lista = alohandes.darVOHabitaciones();
+
+			String resultado = "En listarHabitaciones";
+			resultado +=  "\n" + listarHabitaciones(lista); 
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+    /**
+     * Borra de la base de datos la habitacion con el identificador dado po el usuario
+     * Cuando dicho vinculado no existe, se indica que se borraron 0 registros de la base de datos
+     */
+    public void eliminarHabitacionPorId( )
+    {
+    	try 
+    	{
+    		String idHabitacionStr = JOptionPane.showInputDialog (this, "Id de la habitacion?", "Borrar habitacion por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idHabitacionStr != null)
+    		{
+    			long idHabitacion = Long.valueOf (idHabitacionStr);
+    			long tbEliminados = alohandes.eliminarHabitacionPorId(idHabitacion);
+
+    			String resultado = "En eliminar Habitacion\n\n";
+    			resultado += tbEliminados + " Hbaitacion eliminados\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
@@ -517,13 +637,13 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 	 * 			Métodos privados para la presentación de resultados y otras operaciones
 	 *****************************************************************/
     /**
-     * Genera una cadena de caracteres con la lista de los tipos de bebida recibida: una línea por cada tipo de bebida
-     * @param lista - La lista con los tipos de bebida
-     * @return La cadena con una líea para cada tipo de bebida recibido
+     * Genera una cadena de caracteres con la lista de los tipos de vinculados
+     * @param lista - La lista con los tipos de vinculados
+     * @return La cadena con una líea para cada vinculado recibido
      */
     private String listarVinculadosUniandes(List<VOVinculadoUniandes> lista) 
     {
-    	String resp = "Los tipos de bebida existentes son:\n";
+    	String resp = "Los vinculados son:\n";
     	int i = 1;
         for (VOVinculadoUniandes tb : lista)
         {
@@ -531,6 +651,24 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
         }
         return resp;
 	}
+
+	 /**
+     * Genera una cadena de caracteres con la lista de las habitaciones
+     * @param lista - La lista con las habitaciones
+     * @return La cadena con una líea para cada habitacion recibido
+     */
+    private String listarHabitaciones(List<VOHabitacion> lista) 
+    {
+    	String resp = "Las habitaciones son:\n";
+    	int i = 1;
+        for (VOHabitacion tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+
+
 
     /**
      * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
