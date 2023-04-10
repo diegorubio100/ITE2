@@ -839,7 +839,7 @@ public class PersistenciaAlohandes {
 	 * @param disponible   - El tipo del vinculado ('Estudiante', 'Egresado',
 	 *                     'Empleado',
 	 *                     'Acudiente', 'Invitado')
-	 * @return El objeto VinculadoUniandes adicionado. null si ocurre alguna
+	 * @return El objeto Disponibilidad adicionado. null si ocurre alguna
 	 *         Excepción
 	 */
 	public Disponibilidad adicionarDisponibilidad(Timestamp fecha, long idHabitacion, long idReserva,
@@ -867,6 +867,101 @@ public class PersistenciaAlohandes {
 			}
 			pm.close();
 		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * DISPONIBILIDAD, dado la fecha y idhabitacion
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param fecha        - El nombre del vinculado
+	 * @param idHabitacion - El nombre del vinculado
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarDisponibilidad(Timestamp fecha, long idHabitacion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlDisponibilidad.eliminarDisponibilidad(pm, fecha, idHabitacion);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que cambia, de manera transaccional, una tupla en la tabla
+	 * DISPONIBILIDAD, dado idhabitacion
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idHabitacion - El nombre del vinculado
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long cambiarDisponiblePorIdHabitacion(String disponible, long idHabitacion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlDisponibilidad.cambiarDisponiblePorIdHabitacion(pm, disponible, idHabitacion);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que cambia, de manera transaccional, una tupla en la tabla
+	 * DISPONIBILIDAD, dado idReserva
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idReserva - El nombre del vinculado
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long cambiarDisponiblePorIdReserva(String disponible, long idReserva) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlDisponibilidad.cambiarDisponiblePorIdReserva(pm, disponible, idReserva);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla DISPONIBILIDAD
+	 * 
+	 * @return La lista de objetos Disponibilidad, construidos con base en las
+	 *         tuplas de la tabla DISPONIBILIDAD
+	 */
+	public List<Disponibilidad> darDisponibilidades() {
+		return sqlDisponibilidad.darDisponibilidades(pmf.getPersistenceManager());
 	}
 
 	/*

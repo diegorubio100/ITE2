@@ -79,6 +79,38 @@ public class SQLDisponibilidad {
     }
 
     /**
+     * Crea y ejecuta la sentencia SQL para eliminar UN DISPONIBILIDAD de la base de
+     * datos de Alohandes, por sus identificador
+     * 
+     * @param pm           - El manejador de persistencia
+     * @param disponible   - La nueva disponibilidad
+     * @param idHabitacion - El identificador de la habitacion
+     * @return EL número de tuplas eliminadas
+     */
+    public long cambiarDisponiblePorIdHabitacion(PersistenceManager pm, String disponible, long idHabitacion) {
+        Query q = pm.newQuery(SQL,
+                "UPDATE " + pp.darTablaDisponibilidad() + "SET disponible = ? WHERE idHabitacion = ?");
+        q.setParameters(disponible, idHabitacion);
+        return (long) q.executeUnique();
+    }
+
+    /**
+     * Crea y ejecuta la sentencia SQL para eliminar UN DISPONIBILIDAD de la base de
+     * datos de Alohandes, por sus identificador
+     * 
+     * @param pm         - El manejador de persistencia
+     * @param disponible - La nueva disponibilidad
+     * @param idReserva  - El identificador de la reserva
+     * @return EL número de tuplas eliminadas
+     */
+    public long cambiarDisponiblePorIdReserva(PersistenceManager pm, String disponible, long idReserva) {
+        Query q = pm.newQuery(SQL,
+                "UPDATE " + pp.darTablaDisponibilidad() + "SET disponible = ? WHERE idReserva = ?");
+        q.setParameters(disponible, idReserva);
+        return (long) q.executeUnique();
+    }
+
+    /**
      * Crea y ejecuta la sentencia SQL para encontrar la información de los
      * DISPONIBILIDAD de la
      * base de datos de Alohandes
