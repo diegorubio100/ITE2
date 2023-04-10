@@ -215,7 +215,7 @@ public class PersistenciaAlohandes {
             long tuplasInsertadas = sqlVinculadoUniandes.adicionarVinculadoUniandes(pm, idVinculado, nombre, tipo);
             tx.commit();
             
-            log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            log.trace ("Inserción deL vinculado: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
             return new VinculadoUniandes(idVinculado,nombre,tipo);
         }
