@@ -2,6 +2,7 @@ package uniandes.isis2304.parranderos.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.parranderos.negocio.VinculadoUniandes;
 import uniandes.isis2304.parranderos.negocio.Habitacion;
+import uniandes.isis2304.parranderos.negocio.Hostal;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.Disponibilidad;
 import uniandes.isis2304.parranderos.negocio.Hotel;
@@ -1100,6 +1102,137 @@ public class PersistenciaAlohandes {
 	 */
 	public List<Hotel> darHoteles() {
 		return sqlHotel.darHoteles(pmf.getPersistenceManager());
+	}
+
+	/*
+	 * ****************************************************************
+	 * Métodos para manejar HOSTAL
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla
+	 * Hostal
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre       - El nombre de vinculado
+	 * @param horaApertura
+	 * @param horaCierre
+	 * 
+	 * @return El objeto Hostal adicionado. null si ocurre alguna
+	 *         Excepción
+	 */
+	public Hostal adicionarHostal(String nombre, String restaurante, LocalTime horaApertura, LocalTime horaCierre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idHostal = nextval();
+			long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idHostal, nombre, horaApertura, horaCierre);
+			tx.commit();
+
+			log.trace("Inserción deL vinculado: " + idHostal + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Hostal(idHostal, nombre, horaApertura, horaCierre);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * Hostal, dado el nombre del Hostal
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param nombre - El nombre del Hostal
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarHostalPorNombre(String nombre) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlHostal.eliminarHostalPorNombre(pm, nombre);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla
+	 * Hostal, dado el nombre del Hostal
+	 * Adiciona entradas al log de la aplicación
+	 * 
+	 * @param idHostal - El nombre del Hostal
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarHostalPorId(long idHostal) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlHostal.eliminarHostalPorId(pm, idHostal);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Hostal con un
+	 * identificador dado
+	 * 
+	 * @param idHostal - El identificador del vinculado
+	 * @return El objeto Hostal, construido con base en las tuplas de la
+	 *         tabla Hostal con el identificador dado
+	 */
+	public Hostal darHostalPorId(long idHostal) {
+		return sqlHostal.darHostalPorId(pmf.getPersistenceManager(), idHostal);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Hostal con un
+	 * nombre dado
+	 * 
+	 * @param nombre - El nombre del vinculado
+	 * @return El objeto Hostal, construido con base en las tuplas de la
+	 *         tabla Hostal con el nombre dado
+	 */
+	public List<Hostal> darHostalesPorNombre(String nombre) {
+		return sqlHostal.darHostalesPorNombre(pmf.getPersistenceManager(), nombre);
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Hostal
+	 * 
+	 * @return La lista de objetos Hostal, construidos con base en las
+	 *         tuplas de la tabla Hostal
+	 */
+	public List<Hostal> darHostales() {
+		return sqlHostal.darHostales(pmf.getPersistenceManager());
 	}
 
 	/*
