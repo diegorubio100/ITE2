@@ -1,22 +1,22 @@
-create sequence alohandes;
+create sequence Alohandes_sequence;
 
 
-CREATE TABLE A_VinculadoUniandes (
+CREATE TABLE A_VINCULADOUNIANDES (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
-    vinculacion VARCHAR(50) NOT NULL,
-    CONSTRAINT CK_VinculadoUniandes_vinculacion CHECK (vinculacion IN ('Estudiante', 'Egresado', 'Empleado', 'Acudiente', 'Invitado'))
+    tipo VARCHAR(50) NOT NULL,
+    CONSTRAINT CK_VinculadoUniandes_tipo CHECK (tipo IN ('Estudiante', 'Egresado', 'Empleado', 'Acudiente', 'Invitado'))
 );
 
 
-CREATE TABLE A_Habitacion (
+CREATE TABLE A_HABITACION (
     id NUMBER,
     tipo VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Habitacion PRIMARY KEY (id),
     CONSTRAINT CK_Habitacion_tipo CHECK (tipo IN ('Hotel', 'Hostal', 'Fenicia', 'AlquilaMes', 'AlquilaDia', 'ResidenciaUniversitaria'))
 );
 
-CREATE TABLE A_Reserva (
+CREATE TABLE A_RESERVA (
     id NUMBER,
     idCliente NUMBER NOT NULL,
     idHabitacion NUMBER NOT NULL,
@@ -28,19 +28,19 @@ CREATE TABLE A_Reserva (
     CONSTRAINT FK_Reserva_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id)
 );
 
-CREATE TABLE A_Disponibilidad (
+CREATE TABLE A_DISPONIBILIDAD (
     fecha DATE,
     idHabitacion NUMBER,
     idReserva NUMBER,
     disponible CHAR(1) DEFAULT 'N' NOT NULL,
     CONSTRAINT PK_Disponibilidad PRIMARY KEY (fecha, idHabitacion),
     CONSTRAINT FK_Disponibilidad_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
-    CONSTRAINT FK_Disponibilidad_idReserva FOREIGN KEY (idHabitacion) REFERENCES A_Reserva (id),
+    CONSTRAINT FK_Disponibilidad_idReserva FOREIGN KEY (idReserva) REFERENCES A_Reserva (id),
     CONSTRAINT CK_Disponibilidad_disponible CHECK ((disponible) IN ('N', 'Y'))
 );
 
 
-CREATE TABLE A_Hotel (
+CREATE TABLE A_HOTEL (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     restaurante CHAR(1) DEFAULT 'N' NOT NULL,
@@ -52,26 +52,26 @@ CREATE TABLE A_Hotel (
     CONSTRAINT CK_Hotel_restaurante CHECK (restaurante IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_piscina CHECK (piscina IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_parqueadero CHECK (parqueadero IN ('N', 'Y')),
-    CONSTRAINT CK_Hotel_wifi CHECK (wifi IN ('N', 'Y')),
+    -- CONSTRAINT CK_Hotel_wifi CHECK (wifi IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_tv CHECK (tv IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_recepcion CHECK (recepcion IN ('N', 'Y'))
 );
 
 
-CREATE TABLE A_Hostal (
+CREATE TABLE A_HOSTAL (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     horaApertura INTERVAL DAY(0) TO SECOND (0) NOT NULL,
     horaCierre INTERVAL DAY(0) TO SECOND (0) NOT NULL
 );
 
-CREATE TABLE A_Fenicia (
+CREATE TABLE A_FENICIA (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE
 );
 
 
-CREATE TABLE A_AlquilaMes (
+CREATE TABLE A_ALQUILAMES (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     idMiembro NUMBER NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE A_AlquilaMes (
 );
 
 
-CREATE TABLE A_AlquilaDia (
+CREATE TABLE A_ALQUILADIA (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     idMiembro NUMBER NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE A_AlquilaDia (
 );
 
 
-CREATE TABLE A_ResidenciaUniversitaria (
+CREATE TABLE A_RESIDENCIAUNIVERSITARIA (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
     restaurante CHAR(1) DEFAULT 'N' NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE A_ResidenciaUniversitaria (
 );
 
 
-CREATE TABLE A_HabitacionHotel(
+CREATE TABLE A_HABITACIONHOTEL(
     idHabitacion NUMBER PRIMARY KEY,
     idHotel NUMBER NOT NULL,
     tipoHabitacion VARCHAR2(15) NOT NULL CHECK (tipoHabitacion IN ('Estandar', 'Semisuite', 'Suite')),
@@ -113,24 +113,24 @@ CREATE TABLE A_HabitacionHotel(
     sala CHAR(1) NOT NULL CHECK (sala IN ('Y', 'N')),
     cocineta CHAR(1) NOT NULL CHECK (cocineta IN ('Y', 'N')),
     precioNoche NUMBER NOT NULL CHECK (precioNoche > 0),
-    CONSTRAINT fk_HabitacionHotel_Habitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion(id),
-    CONSTRAINT fk_HabitacionHotel_Hotel FOREIGN KEY (idHotel) REFERENCES A_Hotel(id)
+    CONSTRAINT FK_HabitacionHotel_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
+    CONSTRAINT FK_HabitacionHotel_idHotel FOREIGN KEY (idHotel) REFERENCES A_Hotel (id)
 );
 
 
 
-CREATE TABLE A_HabitacionHostal (
+CREATE TABLE A_HABITACIONHOSTAL (
     idHabitacion NUMBER PRIMARY KEY,
     idHostal NUMBER NOT NULL,
     capacidad NUMBER NOT NULL CHECK (capacidad > 0),
     tamanio NUMBER NOT NULL CHECK (tamanio > 0),
-     precioNoche NUMBER NOT NULL CHECK (precioNoche > 0),
-     CONSTRAINT fk_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion(id),
-    CONSTRAINT fk_idHostal FOREIGN KEY (idHostal) REFERENCES A_Hotel(id)
+    precioNoche NUMBER NOT NULL CHECK (precioNoche > 0),
+    CONSTRAINT FK_HabitacionHostal_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
+    CONSTRAINT FK_HabitacionHostal_idHostal FOREIGN KEY (idHostal) REFERENCES A_Hotel (id)
 );
 
 
-CREATE TABLE A_HabitacionFenicia (
+CREATE TABLE A_HABITACIONFENICIA (
     idHabitacion NUMBER PRIMARY KEY,
     idPersonaFenicia NUMBER NOT NULL,
     precio NUMBER NOT NULL CHECK (precio > 0),
@@ -145,12 +145,12 @@ CREATE TABLE A_HabitacionFenicia (
     agua NUMBER NOT NULL CHECK (agua >= 0),
     tv NUMBER NOT NULL CHECK (tv >= 0),
     internet NUMBER NOT NULL CHECK (internet >= 0),
-    CONSTRAINT fk_idHab FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion(id),
-    CONSTRAINT fk_idPerFenicia FOREIGN KEY (idPersonaFenicia) REFERENCES A_Fenicia(id)
+    CONSTRAINT FK_HabitacionFenicia_idHab FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
+    CONSTRAINT FK_HabitacionFenicia_idPersonaFenicia FOREIGN KEY (idPersonaFenicia) REFERENCES A_Fenicia (id)
 );
 
 
-CREATE TABLE A_ApartamentoComunidad (
+CREATE TABLE A_APARTAMENTOCOMUNIDAD (
     idHabitacion NUMBER PRIMARY KEY,
     idMiembroAlquila NUMBER NOT NULL,
     precio NUMBER NOT NULL CHECK (precio > 0),
@@ -160,12 +160,12 @@ CREATE TABLE A_ApartamentoComunidad (
     tv CHAR(1) NOT NULL CHECK (tv IN ('Y', 'N')),
     internet CHAR(1) NOT NULL CHECK (internet IN ('Y', 'N')),
     administracion CHAR(1) NOT NULL CHECK (administracion IN ('Y', 'N')),
-    CONSTRAINT fk_idHabi FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion(id),
-    CONSTRAINT fk_idMiembroAlqu FOREIGN KEY (idMiembroAlquila) REFERENCES A_AlquilaMes(id)
+    CONSTRAINT FK_ApartamentoComunidad_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
+    CONSTRAINT FK_ApartamentoComunidad_idMiembroAlquila FOREIGN KEY (idMiembroAlquila) REFERENCES A_AlquilaMes (id)
 );
 
 
-CREATE TABLE A_Vivienda (
+CREATE TABLE A_VIVIENDA (
     idHabitacion NUMBER PRIMARY KEY,
     idAlquilerDias NUMBER NOT NULL,
     precio NUMBER NOT NULL CHECK (precio > 0),
@@ -173,12 +173,12 @@ CREATE TABLE A_Vivienda (
     ubicacion VARCHAR(100) NOT NULL ,
     menaje CHAR(1) NOT NULL CHECK (menaje IN ('Y', 'N')),
     caracSeguro NUMBER NOT NULL CHECK (caracSeguro > 0),
-    CONSTRAINT fk_vivienda_habitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion(id),
-    CONSTRAINT fk_vivienda_alquiler FOREIGN KEY (idAlquilerDias) REFERENCES A_AlquilaDia(id)
+    CONSTRAINT FK_Vivienda_idhabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
+    CONSTRAINT FK_Vivienda_idAlquilerDias FOREIGN KEY (idAlquilerDias) REFERENCES A_AlquilaDia (id)
 );
 
 
-CREATE TABLE A_HabitacionUniversitaria (
+CREATE TABLE A_HABITACIONUNIVERSITARIA (
   idHabitacion NUMBER PRIMARY KEY,
   idResidenciaUniversitaria NUMBER NOT NULL,
   precio NUMBER NOT NULL CHECK (precio > 0),
@@ -196,9 +196,7 @@ CREATE TABLE A_HabitacionUniversitaria (
   apoyoAcademico CHAR(1) NOT NULL CHECK (apoyoAcademico IN ('Y', 'N')),
   tipoHabitacion VARCHAR2(15) NOT NULL CHECK (tipoHabitacion IN ('Individual', 'Compartida')),
   menaje CHAR(1) NOT NULL CHECK (menaje IN ('Y', 'N')),
-  CONSTRAINT fk_habit FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion(id),
-  CONSTRAINT fk_residen FOREIGN KEY (idResidenciaUniversitaria) REFERENCES A_ResidenciaUniversitaria(id)
+  CONSTRAINT FK_HabitacionUniversitaria_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
+  CONSTRAINT FK_HabitacionUniversitaria_idResidenciaUniversitaria FOREIGN KEY (idResidenciaUniversitaria) REFERENCES A_ResidenciaUniversitaria (id)
 );
-
-
-
+commit;
