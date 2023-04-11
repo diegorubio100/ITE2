@@ -1759,7 +1759,7 @@ public class PersistenciaAlohandes {
 	 * 
 	 * @return
 	 */
-	public List<Object[]> darIndiceOcupacionOfertas() {
+	public List<Object> darIndiceOcupacionOfertas() {
 		return sqlHabitacion.darIndiceOcupacionOfertas(pmf.getPersistenceManager());
 	}
 
@@ -1770,7 +1770,7 @@ public class PersistenciaAlohandes {
 	 * 
 	 * @return
 	 */
-	public List<Object[]> darAlojamientosCumplenRequerimientos() {
+	public List<Object> darAlojamientosCumplenRequerimientos() {
 		// -------------
 		return sqlHabitacion.darIndiceOcupacionOfertas(pmf.getPersistenceManager());
 		// -------------

@@ -368,11 +368,27 @@ public class Alohandes {
 	 * ALOJAMIENTO REGISTRADAS
 	 * **************************************************
 	 */
-	public List<Object[]> darIndiceOcupacionOfertas() {
+	public List<Object> darIndiceOcupacionOfertas() {
 		log.info("Generando Indice Ocupacion Ofertas ");
-		List<Object[]> ofertas = pp.darIndiceOcupacionOfertas();
+		List<Object> tuplas = pp.darIndiceOcupacionOfertas();
 		log.info("Terminando Indice Ocupacion Ofertas ");
-		return ofertas;
+		List<Object> respuesta = new ArrayList<>();
+		for (Object tupla : tuplas){
+			Object [] datos = (Object[]) tupla;
+
+			long idHabitacion = ((BigDecimal) datos[0]).longValue();
+			double indiceOcupacion = ((BigDecimal) datos[1]).doubleValue();
+
+			Object [] resp = new Object [2];
+
+			resp[0] = idHabitacion;
+			resp[1] = indiceOcupacion;
+
+			respuesta.add(resp);
+
+		}
+
+		return respuesta;
 	}
 
 	/*
@@ -382,9 +398,9 @@ public class Alohandes {
 	 * POR EJEMPLO, COCINETA, TV CABLE, INTERNET, SALA
 	 * **************************************************
 	 */
-	public List<Object[]> darAlojamientosCumplenRequerimientos(String requerimientos) {
+	public List<Object> darAlojamientosCumplenRequerimientos(String requerimientos) {
 		log.info("Generando Alojamientos que cumplen con Requerimientos ");
-		List<Object[]> ofertas = pp.darAlojamientosCumplenRequerimientos();
+		List<Object> ofertas = pp.darAlojamientosCumplenRequerimientos();
 		log.info("Terminando Alojamientos que cumplen con Requerimientos ");
 		return ofertas;
 	}

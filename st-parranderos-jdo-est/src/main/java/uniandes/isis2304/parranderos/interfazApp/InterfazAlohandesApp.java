@@ -683,13 +683,15 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     {
     	try 
     	{	
-			 List<Object []> resp = alohandes.darIndiceOcupacionOfertas();
-			 System.out.println(resp);
+			 List<Object > resp = alohandes.darIndiceOcupacionOfertas();
 			 String mensaje = "Estos son";
-			 for (Object [] tupla: resp){
-				mensaje += tupla;
-			 }
-    		panelDatos.actualizarInterfaz(mensaje);
+			 for (Object objeto : resp) {
+				Object[] arreglo = (Object[]) objeto;
+				for (Object elemento : arreglo) {
+					System.out.println(elemento.toString());
+				}
+			}
+    		
     		
 		} 
     	catch (Exception e) 
@@ -699,6 +701,7 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
+
 
 
 

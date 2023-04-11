@@ -133,7 +133,7 @@ public class SQLHabitacion {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos
 	 */
-	public List<Object[]> darIndiceOcupacionOfertas(PersistenceManager pm) {
+	public List<Object> darIndiceOcupacionOfertas(PersistenceManager pm) {
 
 		String query = "";
 		query += "SELECT A_Habitacion.id, ROUND(COUNT(A_Disponibilidad.fecha)/365, 3) AS indiceocupacion ";
