@@ -250,7 +250,7 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     		String nombreVinculado = JOptionPane.showInputDialog (this, "Nombre del vinculado?", "Adicionar vinculadoUniandes", JOptionPane.QUESTION_MESSAGE);
     		if (nombreVinculado != null)
     		{
-				String tipoVinculado = JOptionPane.showInputDialog (this, "Tipo del vinculado?", "Adicionar vinculadoUniandes", JOptionPane.QUESTION_MESSAGE);
+				String tipoVinculado = JOptionPane.showInputDialog (this, "Tipo del vinculado (Estudiante, Egresado, Empleado, Acudiente, Invitado)", "Adicionar vinculadoUniandes", JOptionPane.QUESTION_MESSAGE);
         		VOVinculadoUniandes tb = alohandes.adicionarVinculadoUniandes(nombreVinculado, tipoVinculado);
         		if (tb == null)
         		{
@@ -460,8 +460,7 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 		}
     }
 
-
-
+	
 
 	/* ****************************************************************
 	 * 			CRUD de RESERVA
@@ -575,7 +574,48 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 		}
     }
 
-    
+     /**
+     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
+     */
+    public void buscarReservasPorIdHabitacion( )
+    {
+    	try 
+    	{
+    		String idHabStr = JOptionPane.showInputDialog (this, "Id de la habitación?", "Buscar reserva por habitacion", JOptionPane.QUESTION_MESSAGE);
+    		if (idHabStr != null)
+    		{
+				long idHab= Long.valueOf(idHabStr);
+    			List<VOReserva> reservas = alohandes.darVOReservasPorIdHabitacion(idHab);
+    			String resultado = "En listarReservas";
+				System.out.println(reservas);
+    			if (reservas.size()!=0)
+    			{
+        			resultado +=  "\n" + listarReservas(reservas);
+					panelDatos.actualizarInterfaz(resultado);
+					resultado += "\n Operación terminada"; 
+    			}
+    			else
+    			{
+        			resultado += " \n NO hay reservas con ese id habitacion, puede eliminar en la OPCION HABITACION CON EL MISMO ID";		
+    			}
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+		
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	
 
 
 	/* ****************************************************************

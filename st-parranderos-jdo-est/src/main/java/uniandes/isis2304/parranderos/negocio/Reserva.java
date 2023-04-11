@@ -1,6 +1,8 @@
 package uniandes.isis2304.parranderos.negocio;
 
 import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Reserva implements VOReserva
 {
@@ -57,7 +59,7 @@ public class Reserva implements VOReserva
 
 	/**
 	 * Constructor con valores
-     * * @param id - El identificador de la reserva
+     * @param id - El identificador de la reserva
 	 * @param idCliente - El identificador del cliente. Debe existir un cliente con dicho identificador
 	 * @param idHabitacion - El identificador de la habitacion. Debe exixtir una habitacion con dicho identificador
 	 * @param fechaReserva - La fecha en la cual se realiza la reserva
