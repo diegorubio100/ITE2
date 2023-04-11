@@ -599,7 +599,10 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     			}
     			else
     			{
-        			resultado += " \n NO hay reservas con ese id habitacion, puede eliminar en la OPCION HABITACION CON EL MISMO ID";		
+        			resultado += " \n NO hay reservas con ese id habitacion, ELIMINAR HABITACION SIN RESERVAS";
+					long tbEliminados = alohandes.eliminarHabitacionPorId(idHab);
+    				resultado += "En eliminar Habitacion\n\n";
+    				resultado += tbEliminados + " HaBitacion eliminados\n";		
     			}
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
