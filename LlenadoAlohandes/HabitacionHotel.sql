@@ -1,0 +1,6 @@
+-- HabitacionHotel
+insert into A_HabitacionHotel (idHabitacion, idHotel, tipoHabitacion, capacidad, ubicacion, tamanio, baniera, yacuzzi, sala, cocineta, precioNoche) values (1, 1, 'Semisuite', 3, '52826 Esch Avenue', 26, 'N', 'Y', 'N', 'Y', 612);
+insert into A_HabitacionHotel (idHabitacion, idHotel, tipoHabitacion, capacidad, ubicacion, tamanio, baniera, yacuzzi, sala, cocineta, precioNoche) values (2, 1, 'Estandar', 4, '9 Havey Terrace', 62, 'Y', 'Y', 'N', 'N', 154);
+insert into A_HabitacionHotel (idHabitacion, idHotel, tipoHabitacion, capacidad, ubicacion, tamanio, baniera, yacuzzi, sala, cocineta, precioNoche) values (3, 3, 'Estandar', 1, '4 Arizona Junction', 88, 'Y', 'Y', 'N', 'Y', 532);
+insert into A_HabitacionHotel (idHabitacion, idHotel, tipoHabitacion, capacidad, ubicacion, tamanio, baniera, yacuzzi, sala, cocineta, precioNoche) values (4, 4, 'Estandar', 3, '266 Chinook Terrace', 28, 'N', 'N', 'Y', 'N', 675);
+insert into A_HabitacionHotel (idHabitacion, idHotel, tipoHabitacion, capacidad, ubicacion, tamanio, baniera, yacuzzi, sala, cocineta, precioNoche) values (5, 5, 'Semisuite', 2, '54 Burrows Center', 33, 'N', 'Y', 'N', 'Y', 779);

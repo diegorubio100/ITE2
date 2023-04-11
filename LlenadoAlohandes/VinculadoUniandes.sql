@@ -1,6 +1,4 @@
 -- 1 VinculadoUniandes
-INSERT INTO A_VinculadoUniandes (id, nombre, vinculacion) 
-VALUES (Alohandes.nextVal, 'Santiago', 'Estudiante');
 insert into A_VinculadoUniandes (id, nombre, vinculacion) values (1, 'Krysta', 'Empleado');
 insert into A_VinculadoUniandes (id, nombre, vinculacion) values (2, 'Nat', 'Estudiante');
 insert into A_VinculadoUniandes (id, nombre, vinculacion) values (3, 'Basile', 'Acudiente');

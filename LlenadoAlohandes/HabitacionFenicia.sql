@@ -1,0 +1,6 @@
+-- HabitacionFenicia
+insert into A_HabitacionFenicia (idHabitacion, idPersonaFenicia, precio, precioPrePagar, minimoMeses, comidas, cocina, tipoBanio, tipoHabitacion, luz, telefono, agua, tv, internet) values (11, 1, 115, 64, 2, 'Y', 'Y', 'Compartido', 'Individual', 18, 79, 55, 46, 39);
+insert into A_HabitacionFenicia (idHabitacion, idPersonaFenicia, precio, precioPrePagar, minimoMeses, comidas, cocina, tipoBanio, tipoHabitacion, luz, telefono, agua, tv, internet) values (12, 2, 48, 180, 2, 'N', 'Y', 'Privado', 'Individual', 75, 86, 79, 85, 39);
+insert into A_HabitacionFenicia (idHabitacion, idPersonaFenicia, precio, precioPrePagar, minimoMeses, comidas, cocina, tipoBanio, tipoHabitacion, luz, telefono, agua, tv, internet) values (13, 3, 89, 143, 3, 'Y', 'Y', 'Privado', 'Individual', 96, 11, 70, 88, 94);
+insert into A_HabitacionFenicia (idHabitacion, idPersonaFenicia, precio, precioPrePagar, minimoMeses, comidas, cocina, tipoBanio, tipoHabitacion, luz, telefono, agua, tv, internet) values (14, 4, 142, 32, 3, 'N', 'Y', 'Compartido', 'Compartida', 93, 6, 34, 69, 37);
+insert into A_HabitacionFenicia (idHabitacion, idPersonaFenicia, precio, precioPrePagar, minimoMeses, comidas, cocina, tipoBanio, tipoHabitacion, luz, telefono, agua, tv, internet) values (15, 5, 151, 139, 3, 'N', 'Y', 'Privado', 'Individual', 55, 59, 5, 27, 21);
