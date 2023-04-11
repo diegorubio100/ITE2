@@ -14785,3 +14785,27 @@ java.sql.SQLException: ORA-01017: invalid username/password; logon denied
 12:17:10,098 (AWT-EventQueue-0) DEBUG [DataNucleus.Query] - La clase de resultado "uniandes.isis2304.parranderos.negocio.VinculadoUniandes" no tiene un campo publico "tipo"
 12:17:10,098 (AWT-EventQueue-0) DEBUG [DataNucleus.Query] - ResultObject set field=TIPO using public setTipo() method
 12:17:10,098 (AWT-EventQueue-0) DEBUG [DataNucleus.Connection] - ManagedConnection CERRADO : "org.datanucleus.store.rdbms.ConnectionFactoryImpl$ManagedConnectionImpl@11fde1c2 [conn=org.datanucleus.store.rdbms.datasource.dbcp2.PoolingDataSource$PoolGuardConnectionWrapper@560b2cba, commitOnRelease=true, closeOnRelease=true, closeOnTxnEnd=true]" 
+13:10:44,558 (main) DEBUG [DataNucleus.General] - Using PluginRegistry org.datanucleus.plugin.NonManagedPluginRegistry
+13:10:44,580 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus.api.jdo version 5.1.7 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-api-jdo-5.1.7.jar.
+13:10:44,589 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-api-jdo-5.1.7.jar!/plugin.xml.
+13:10:44,589 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus version 5.1.10 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-core-5.1.10.jar.
+13:10:44,589 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-core-5.1.10.jar!/plugin.xml.
+13:10:44,606 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus.store.rdbms version 5.1.10 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-rdbms-5.1.10.jar.
+13:10:44,606 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-rdbms-5.1.10.jar!/plugin.xml.
+13:10:44,621 (main) DEBUG [DataNucleus.MetaData] - Analizando el MetaData "file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/target/classes/META-INF/persistence.xml" con handler "persistence" (validar="false")
+13:11:06,697 (main) DEBUG [DataNucleus.General] - Using PluginRegistry org.datanucleus.plugin.NonManagedPluginRegistry
+13:11:06,722 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus.api.jdo version 5.1.7 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-api-jdo-5.1.7.jar.
+13:11:06,738 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-api-jdo-5.1.7.jar!/plugin.xml.
+13:11:06,745 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus version 5.1.10 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-core-5.1.10.jar.
+13:11:06,747 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-core-5.1.10.jar!/plugin.xml.
+13:11:06,754 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus.store.rdbms version 5.1.10 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-rdbms-5.1.10.jar.
+13:11:06,758 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-rdbms-5.1.10.jar!/plugin.xml.
+13:11:06,779 (main) DEBUG [DataNucleus.MetaData] - Analizando el MetaData "file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/target/classes/META-INF/persistence.xml" con handler "persistence" (validar="false")
+13:11:37,210 (main) DEBUG [DataNucleus.General] - Using PluginRegistry org.datanucleus.plugin.NonManagedPluginRegistry
+13:11:37,228 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus.api.jdo version 5.1.7 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-api-jdo-5.1.7.jar.
+13:11:37,239 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-api-jdo-5.1.7.jar!/plugin.xml.
+13:11:37,243 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus version 5.1.10 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-core-5.1.10.jar.
+13:11:37,245 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-core-5.1.10.jar!/plugin.xml.
+13:11:37,250 (main) DEBUG [DataNucleus.General] - Registering bundle org.datanucleus.store.rdbms version 5.1.10 at URL file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-rdbms-5.1.10.jar.
+13:11:37,253 (main) DEBUG [DataNucleus.General] - Leyendo extension-points y extensiones del archivo de plug-in jar:file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/lib/datanucleus-rdbms-5.1.10.jar!/plugin.xml.
+13:11:37,267 (main) DEBUG [DataNucleus.MetaData] - Analizando el MetaData "file:/C:/Users/diego/Desktop/ITE2/st-parranderos-jdo-est/target/classes/META-INF/persistence.xml" con handler "persistence" (validar="false")
