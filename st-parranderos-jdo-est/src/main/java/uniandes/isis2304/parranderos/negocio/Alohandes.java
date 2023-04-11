@@ -1,12 +1,15 @@
 package uniandes.isis2304.parranderos.negocio;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 import uniandes.isis2304.parranderos.persistencia.PersistenciaAlohandes;
+import uniandes.isis2304.parranderos.persistencia.SQLHabitacion;
 
 public class Alohandes {
 	/*
@@ -338,10 +341,25 @@ public class Alohandes {
 	 */
 	public List<Object> darOfertasMasPopulares() {
 		log.info("Generando Ofertas Mas Populares ");
-		List<Object> ofertas = pp.darOfertasMasPopulares();
+		List<Object> tuplas = pp.darOfertasMasPopulares();
 		log.info("Terminando Ofertas Mas Populares ");
-		log.info(ofertas);
-		return ofertas;
+		List<Object> respuesta = new ArrayList<>();
+		for (Object tupla : tuplas){
+			Object [] datos = (Object[]) tupla;
+
+			long idHabitacion = ((BigDecimal) datos[0]).longValue();
+			int numReservas = ((BigDecimal) datos[1]).intValue();
+
+			Object [] resp = new Object [2];
+
+			resp[0] = idHabitacion;
+			resp[1] = numReservas;
+
+			respuesta.add(resp);
+
+		}
+
+		return respuesta;
 	}
 
 	/*
