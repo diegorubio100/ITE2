@@ -35,7 +35,7 @@ CREATE TABLE A_Disponibilidad (
     disponible CHAR(1) DEFAULT 'N' NOT NULL,
     CONSTRAINT PK_Disponibilidad PRIMARY KEY (fecha, idHabitacion),
     CONSTRAINT FK_Disponibilidad_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
-    CONSTRAINT FK_Disponibilidad_idReserva FOREIGN KEY (idHabitacion) REFERENCES A_Reserva (id),
+    CONSTRAINT FK_Disponibilidad_idReserva FOREIGN KEY (idReserva) REFERENCES A_Reserva (id),
     CONSTRAINT CK_Disponibilidad_disponible CHECK ((disponible) IN ('N', 'Y'))
 );
 
