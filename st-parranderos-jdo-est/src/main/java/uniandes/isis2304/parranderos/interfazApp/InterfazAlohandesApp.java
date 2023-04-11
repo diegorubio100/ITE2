@@ -635,16 +635,24 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 	 
 			 // Formatear la fecha actual como una cadena en el formato deseado
 			 String fechaFormateada = fechaActual.format(formateador);
-			 System.out.println(fechaFormateada);
 
-			 List<Object []> resp = alohandes.darDineroProveedorActualCorrido(fechaFormateada);
-			 System.out.println(resp);
-			 String mensaje = "Estos son";
-			 for (Object [] tupla: resp){
-				mensaje += tupla;
-			 }
-    		panelDatos.actualizarInterfaz(mensaje);
-    		
+			 List<Object> resp = alohandes.darDineroProveedorActualCorrido(fechaFormateada);
+			 String mensaje = "Dinero Recibido por cada proveedor de alejamiento \n";
+
+			 for (Object objeto : resp) {
+				String fila = "";
+				Object[] arreglo = (Object[]) objeto;
+				for (Object elemento : arreglo) {
+					fila += elemento;
+					fila += " ";
+				}
+				fila += "\n";
+				mensaje += fila;
+			}
+			panelDatos.actualizarInterfaz(mensaje);
+
+
+			
 		} 
     	catch (Exception e) 
     	{
@@ -660,13 +668,19 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     	try 
     	{	
 			 List<Object > resp = alohandes.darOfertasMasPopulares();
-			 String mensaje = "Estos son";
+			 String mensaje = "Los 20 alojamientos más populares son \n";
+
 			 for (Object objeto : resp) {
+				String fila = "";
 				Object[] arreglo = (Object[]) objeto;
 				for (Object elemento : arreglo) {
-					System.out.println(elemento.toString());
+					fila += elemento;
+					fila += " ";
 				}
+				fila += "\n";
+				mensaje += fila;
 			}
+			panelDatos.actualizarInterfaz(mensaje);
     		
     		
 		} 

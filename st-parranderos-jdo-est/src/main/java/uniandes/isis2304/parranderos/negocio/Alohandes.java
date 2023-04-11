@@ -327,11 +327,32 @@ public class Alohandes {
 	 * EL AÑO ACTUAL Y EL AÑO CORRIDO
 	 * **************************************************
 	 */
-	public List<Object[]> darDineroProveedorActualCorrido(String fechaActual) {
+	public List<Object> darDineroProveedorActualCorrido(String fechaActual) {
 		log.info("Generando Dinero Recibido por Proveedor en fecha " + fechaActual);
-		List<Object[]> proveedores = pp.darDineroProveedorActualCorrido(fechaActual);
+		List<Object[]> tuplas = pp.darDineroProveedorActualCorrido(fechaActual);
 		log.info("Terminando Dinero Recibido por Proveedor en fecha " + fechaActual);
-		return proveedores;
+
+		List<Object> respuesta = new ArrayList<>();
+		for (Object tupla : tuplas){
+			Object [] datos = (Object[]) tupla;
+
+			String tipo =  (String) datos[0];
+			String nombre =  (String) datos[1];
+			int actual =  ((BigDecimal) datos[2]).intValue();
+			int corrido =  ((BigDecimal) datos[3]).intValue();
+
+			Object [] resp = new Object [4];
+
+			resp[0] = tipo;
+			resp[1] = nombre;
+			resp[2] = actual;
+			resp[3] = corrido;
+
+			respuesta.add(resp);
+
+		}
+
+		return respuesta;
 	}
 
 	/*
