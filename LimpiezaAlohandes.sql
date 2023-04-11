@@ -4,7 +4,7 @@
     
 -- Eliminar todas las tablas de la base de datos
 
-DROP SEQUENCE Alohandes;
+DROP SEQUENCE Alohandes_sequence;
 DROP TABLE A_VinculadoUniandes CASCADE CONSTRAINTS;
 DROP TABLE A_Habitacion CASCADE CONSTRAINTS;
 DROP TABLE A_Reserva CASCADE CONSTRAINTS;
