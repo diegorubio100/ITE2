@@ -65,6 +65,28 @@
 
 			]
 		},
+		{ "menuTitle": "RFC",
+		  "options":
+			[
+				{
+					"label": "RFC1 Dinero de un proveedor año corrido",
+					"event": "RequerimientoConsulta1"
+				},
+				{
+					"label": "RFC2 20 Alojamientos mas populares",
+					"event": "RequerimientoConsulta2"
+				},
+				{
+					"label": "RFC3 Indice de ocupacion de habitaciones",
+					"event": "RequerimientoConsulta3"
+				},
+				{
+					"label": "RFC4 Alojamientos disponibles en un rango de fechas",
+					"event": "buscarReservasPorIdHabitacion"
+				}
+
+			]
+		},		
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[
@@ -89,7 +111,7 @@
 					"event": "limpiarBD"
 				}
 			]
-		},		
+		},
 		{ "menuTitle": "Documentación",
 		  "options":
 			[

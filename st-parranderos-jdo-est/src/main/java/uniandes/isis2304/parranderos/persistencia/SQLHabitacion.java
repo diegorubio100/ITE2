@@ -109,20 +109,20 @@ public class SQLHabitacion {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos
 	 */
-	public List<Object[]> darOfertasMasPopulares(PersistenceManager pm) {
+	public List<Object> darOfertasMasPopulares(PersistenceManager pm) {
 
 		String query = "";
-		query += "SELECT A_Habitacion.id, COUNT(A_Reserva.id) AS numreservas";
-		query += "FROM A_Habitacion";
-		query += "INNER JOIN A_Reserva ON A_Habitacion.id = A_Reserva.idHabitacion";
-		query += "GROUP BY A_Habitacion.id";
-		query += "ORDER BY COUNT(A_Reserva.id) DESC, A_Habitacion.id ASC";
-		query += "FETCH FIRST 20 ROWS ONLY";
-		query += ";";
+		query += "SELECT A_Habitacion.id, COUNT(A_Reserva.id) AS numreservas ";
+		query += "FROM A_Habitacion ";
+		query += "INNER JOIN A_Reserva ON A_Habitacion.id = A_Reserva.idHabitacion ";
+		query += "GROUP BY A_Habitacion.id ";
+		query += "ORDER BY COUNT(A_Reserva.id) DESC, A_Habitacion.id ASC ";
+		query += "FETCH FIRST 20 ROWS ONLY ";
 
 		Query q = pm.newQuery(SQL, query);
-		return q.executeList();
+		return (List<Object>)q.executeList();
 	}
+
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para RFC1
@@ -136,10 +136,10 @@ public class SQLHabitacion {
 	public List<Object[]> darIndiceOcupacionOfertas(PersistenceManager pm) {
 
 		String query = "";
-		query += "SELECT A_Habitacion.id, ROUND(COUNT(A_Disponibilidad.fecha)/365, 3) AS indiceocupacion";
-		query += "FROM A_Habitacion";
-		query += "LEFT JOIN A_Disponibilidad ON A_Habitacion.id = A_Disponibilidad.idHabitacion";
-		query += "GROUP BY A_Habitacion.id;";
+		query += "SELECT A_Habitacion.id, ROUND(COUNT(A_Disponibilidad.fecha)/365, 3) AS indiceocupacion ";
+		query += "FROM A_Habitacion ";
+		query += "LEFT JOIN A_Disponibilidad ON A_Habitacion.id = A_Disponibilidad.idHabitacion ";
+		query += "GROUP BY A_Habitacion.id";
 
 		Query q = pm.newQuery(SQL, query);
 		return q.executeList();

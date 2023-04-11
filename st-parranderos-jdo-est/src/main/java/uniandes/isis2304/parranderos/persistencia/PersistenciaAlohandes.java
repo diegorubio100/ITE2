@@ -1749,7 +1749,7 @@ public class PersistenciaAlohandes {
 	 * 
 	 * @return
 	 */
-	public List<Object[]> darOfertasMasPopulares() {
+	public List<Object> darOfertasMasPopulares() {
 		return sqlHabitacion.darOfertasMasPopulares(pmf.getPersistenceManager());
 	}
 

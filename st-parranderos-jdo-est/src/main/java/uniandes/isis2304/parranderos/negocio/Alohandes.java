@@ -336,10 +336,11 @@ public class Alohandes {
 	 * RFC2 - MOSTRAR LAS 20 OFERTAS MÁS POPULARES
 	 * **************************************************
 	 */
-	public List<Object[]> darOfertasMasPopulares() {
+	public List<Object> darOfertasMasPopulares() {
 		log.info("Generando Ofertas Mas Populares ");
-		List<Object[]> ofertas = pp.darOfertasMasPopulares();
+		List<Object> ofertas = pp.darOfertasMasPopulares();
 		log.info("Terminando Ofertas Mas Populares ");
+		log.info(ofertas);
 		return ofertas;
 	}
 

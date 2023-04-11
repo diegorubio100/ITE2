@@ -27,7 +27,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
+
+import java.time.format.DateTimeFormatter;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -616,6 +619,110 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     }
 
 	
+
+	/* ****************************************************************
+	 * 			Métodos para REQUERIMIENTOS DE CONSULTA
+	 *****************************************************************/
+	public void RequerimientoConsulta1( )
+    {
+    	try 
+    	{	
+			 // Obtener la fecha actual
+			 LocalDate fechaActual = LocalDate.now();
+
+			 // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+			 DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	 
+			 // Formatear la fecha actual como una cadena en el formato deseado
+			 String fechaFormateada = fechaActual.format(formateador);
+			 System.out.println(fechaFormateada);
+
+			 List<Object []> resp = alohandes.darDineroProveedorActualCorrido(fechaFormateada);
+			 System.out.println(resp);
+			 String mensaje = "Estos son";
+			 for (Object [] tupla: resp){
+				mensaje += tupla;
+			 }
+    		panelDatos.actualizarInterfaz(mensaje);
+    		
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+
+	public void RequerimientoConsulta2( )
+    {
+    	try 
+    	{	
+			 List<Object > resp = alohandes.darOfertasMasPopulares();
+			 System.out.println(resp);
+			 String mensaje = "Estos son";
+			 for (Object  tupla: resp){
+				mensaje += tupla;
+			 }
+    		panelDatos.actualizarInterfaz(mensaje);
+    		
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	
+	public void RequerimientoConsulta3( )
+    {
+    	try 
+    	{	
+			 List<Object []> resp = alohandes.darIndiceOcupacionOfertas();
+			 System.out.println(resp);
+			 String mensaje = "Estos son";
+			 for (Object [] tupla: resp){
+				mensaje += tupla;
+			 }
+    		panelDatos.actualizarInterfaz(mensaje);
+    		
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	/* ****************************************************************
