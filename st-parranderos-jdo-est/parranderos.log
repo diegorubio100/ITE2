@@ -680,3 +680,15 @@ ORA-00904: "TIPO": identificador no válido
 13:11:37,118 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
 13:11:37,118 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
 13:11:37,132 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:12:42,250 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+13:12:42,251 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+13:12:42,278 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:12:46,476 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando Ofertas Mas Populares 
+13:12:46,517 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Terminando Ofertas Mas Populares 
+13:12:46,517 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - [[Ljava.lang.Object;@54643f46, [Ljava.lang.Object;@2ce30048, [Ljava.lang.Object;@20d3afd1, [Ljava.lang.Object;@ef883e, [Ljava.lang.Object;@7504096a, [Ljava.lang.Object;@4151b6c2, [Ljava.lang.Object;@7cc1341e]
+13:12:49,227 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de VinculadoUniandes
+13:12:49,244 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Vinculados: 30 existentes
+13:12:50,771 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitacion
+13:12:50,789 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitaciones: 30 existentes
+13:12:53,916 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Reserva
+13:12:53,945 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Reservas: 10 existentes
