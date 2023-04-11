@@ -1,4 +1,4 @@
-create sequence alohandes;
+CREATE SEQUENCE Alohandes;
 
 
 CREATE TABLE A_VinculadoUniandes (
@@ -52,7 +52,7 @@ CREATE TABLE A_Hotel (
     CONSTRAINT CK_Hotel_restaurante CHECK (restaurante IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_piscina CHECK (piscina IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_parqueadero CHECK (parqueadero IN ('N', 'Y')),
-    CONSTRAINT CK_Hotel_wifi CHECK (wifi IN ('N', 'Y')),
+    -- CONSTRAINT CK_Hotel_wifi CHECK (wifi IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_tv CHECK (tv IN ('N', 'Y')),
     CONSTRAINT CK_Hotel_recepcion CHECK (recepcion IN ('N', 'Y'))
 );
@@ -199,6 +199,3 @@ CREATE TABLE A_HabitacionUniversitaria (
   CONSTRAINT FK_HabitacionUniversitaria_idHabitacion FOREIGN KEY (idHabitacion) REFERENCES A_Habitacion (id),
   CONSTRAINT FK_HabitacionUniversitaria_idResidenciaUniversitaria FOREIGN KEY (idResidenciaUniversitaria) REFERENCES A_ResidenciaUniversitaria (id)
 );
-
-
-
