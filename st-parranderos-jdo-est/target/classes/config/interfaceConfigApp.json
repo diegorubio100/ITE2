@@ -1,8 +1,8 @@
 {
-	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"title": "Aplicación transaccional de Alohandes Uniandes",
 	"frameH": 600,
 	"frameW": 800,
-	"bannerPath": "./src/main/resources/config/logo.png",
+	"bannerPath": "./src/main/resources/config/logoalo.png",
 	"menuBar":
 	[
 		{ "menuTitle": "VinculadoUniandes",

@@ -55,6 +55,12 @@ import uniandes.isis2304.parranderos.negocio.VOHabitacion;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 import uniandes.isis2304.parranderos.negocio.VOVinculadoUniandes;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.util.Vector;
+
+
 
 @SuppressWarnings("serial")
 
@@ -626,98 +632,83 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
 	/* ****************************************************************
 	 * 			Métodos para REQUERIMIENTOS DE CONSULTA
 	 *****************************************************************/
-	public void RequerimientoConsulta1( )
-    {
-    	try 
-    	{	
-			 // Obtener la fecha actual
-			 LocalDate fechaActual = LocalDate.now();
-
-			 // Crear un formateador de fecha con el patrón "yyyy-MM-dd"
-			 DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	 
-			 // Formatear la fecha actual como una cadena en el formato deseado
-			 String fechaFormateada = fechaActual.format(formateador);
-
-			 List<Object> resp = alohandes.darDineroProveedorActualCorrido(fechaFormateada);
-			 String mensaje = "Dinero Recibido por cada proveedor de alejamiento \n";
-
-			 for (Object objeto : resp) {
-				String fila = "";
-				Object[] arreglo = (Object[]) objeto;
-				for (Object elemento : arreglo) {
-					fila += elemento;
-					fila += " ";
-				}
-				fila += "\n";
-				mensaje += fila;
-			}
-			panelDatos.actualizarInterfaz(mensaje);
-
-
-			
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
-
-
-	public void RequerimientoConsulta2( )
-    {
-    	try 
-    	{	
-			 List<Object > resp = alohandes.darOfertasMasPopulares();
-			 String mensaje = "Los 20 alojamientos más populares son \n";
-
-			 for (Object objeto : resp) {
-				String fila = "";
-				Object[] arreglo = (Object[]) objeto;
-				for (Object elemento : arreglo) {
-					fila += elemento;
-					fila += " ";
-				}
-				fila += "\n";
-				mensaje += fila;
-			}
-			panelDatos.actualizarInterfaz(mensaje);
-    		
-    		
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
-
+	public void RequerimientoConsulta1() {
+		try {
+			// Obtener la fecha actual
+			LocalDate fechaActual = LocalDate.now();
 	
-	public void RequerimientoConsulta3( )
-    {
-    	try 
-    	{	
-			 List<Object > resp = alohandes.darIndiceOcupacionOfertas();
-			 String mensaje = "Estos son";
-			 for (Object objeto : resp) {
-				Object[] arreglo = (Object[]) objeto;
-				for (Object elemento : arreglo) {
-					System.out.println(elemento.toString());
-				}
-			}
-    		
-    		
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
+			// Crear un formateador de fecha con el patrón "yyyy-MM-dd"
+			DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	
+			// Formatear la fecha actual como una cadena en el formato deseado
+			String fechaFormateada = fechaActual.format(formateador);
+	
+			List<Object> resp = alohandes.darDineroProveedorActualCorrido(fechaFormateada);
+			String mensaje = String.format("%-45s%-45s%-45s%-45s\n", "Proveedor", "Dinero Recibido", "Operaciones", "Días ocupado");
+			for (Object objeto : resp) {
+			String fila = "";
+			Object[] arreglo = (Object[]) objeto;
+			fila += String.format("%-45s", arreglo[0]);
+			fila += String.format("%-45s", arreglo[1]);
+			fila += String.format("%-45s", arreglo[2]);
+			fila += String.format("%-45s", arreglo[3]) + "\n";
+			mensaje += fila;
+}
+			panelDatos.actualizarInterfaz(mensaje);
+	
+		} catch (Exception e) {
+	//		e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
+	}
+	
+	
+	
+
+
+	public void RequerimientoConsulta2() {
+		try {
+			List<Object> resp = alohandes.darOfertasMasPopulares();
+			String mensaje = String.format("%-30s %10s\n", "Nombre Alojamiento", "Veces reservado");
+	
+			for (Object objeto : resp) {
+				String fila = "";
+				Object[] arreglo = (Object[]) objeto;
+				fila += String.format("%-30s", arreglo[0]);
+				fila += String.format("%10s", arreglo[1]) + "\n";
+				mensaje += fila;
+			}
+			panelDatos.actualizarInterfaz(mensaje);
+	
+		} catch (Exception e) {
+	//		e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	
+	
+	public void RequerimientoConsulta3( ){
+    	try {
+			List<Object> resp = alohandes.darIndiceOcupacionOfertas();
+			String mensaje = String.format("%-30s %10s\n", "Id habitacion", "Indice ocupacion");
+	
+			for (Object objeto : resp) {
+				String fila = "";
+				Object[] arreglo = (Object[]) objeto;
+				fila += String.format("%-30s", arreglo[0]);
+				fila += String.format("%10s", arreglo[1]) + "\n";
+				mensaje += fila;
+			}
+			panelDatos.actualizarInterfaz(mensaje);
+	
+		} catch (Exception e) {
+	//		e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
 
 
 
