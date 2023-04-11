@@ -88,6 +88,21 @@ public class SQLReserva
 		q.setParameters(id);
 		return (Reserva) q.executeUnique();
 	}
+
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para DAR TODAS LAS RESERVAS HECHAS A UNA HABITACION de la base de datos de Alohandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param idHabitacion - El identificador de la habitacion
+	 * @return EL número de tuplas eliminadas
+	 */
+	public List<Reserva> darReservasPorIdHabitacion (PersistenceManager pm, long idHabitacion) 
+	{
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva () + " WHERE idHabitacion = ?");
+        q.setResultClass(Reserva.class);
+		q.setParameters(idHabitacion);
+        return (List<Reserva>) q.executeList();
+	}
 	
 	/**
 	 * Crea y ejecuta la sentencia SQL para ELIMINAR TODAS LAS RESERVAS HECHAS A UNA HABITACION de la base de datos de Alohandes, por su identificador

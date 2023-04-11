@@ -57,7 +57,12 @@
 				{
 					"label": "Borrar por Id",
 					"event": "eliminarReservaPorId"
+				},
+				{
+					"label": "Buscar reserva por IdHabitacion",
+					"event": "buscarReservasPorIdHabitacion"
 				}
+
 			]
 		},
 		{ "menuTitle": "Mantenimiento",

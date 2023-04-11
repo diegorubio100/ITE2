@@ -577,12 +577,23 @@ public class PersistenciaAlohandes {
 	/**
 	 * Método que consulta todas las tuplas en la tabla Reserva con un identificador dado
 	 * @param id - El identificador de la reserva
-	 * @return El objeto VinculadoUniandes, construido con base en las tuplas de la tabla RESERVA con el identificador dado
+	 * @return El objeto Reserva, construido con base en las tuplas de la tabla RESERVA con el identificador dado
 	 */
 	public Reserva darReservaPorId (long id)
 	{
 		return sqlReserva.darReservaPorId(pmf.getPersistenceManager(), id);
 	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Reserva con un identificador de habitacion dado
+	 * @param idHabitacion - El identificador de la habitacion
+	 * @return El objeto Reserva, construido con base en las tuplas de la tabla RESERVA con el identificador dado
+	 */
+	public List<Reserva> darReservasPorIdHabitacion (long idHabitacion)
+	{
+		return sqlReserva.darReservasPorIdHabitacion(pmf.getPersistenceManager(), idHabitacion);
+	}
+
 
 
 

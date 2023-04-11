@@ -278,7 +278,51 @@ public class Alohandes
         return voReservas;
 	}
 
-	
+
+	/**
+	 * Encuentra la reserva en Alohandes con la habitacion solicitada
+	 * Adiciona entradas al log de la aplicación
+	 * @param idHabitacion - El id de habitacion
+	 * @return Un objeto Reservas con la reserva de esa habitacion que conoce la aplicación, 
+	 * lleno con su información básica
+	 */
+	public List<Reserva> darReservasPorIdHabitacion (long idHabitacion)
+	{
+		log.info ("Dar información de reservas por idHabitacion: " + idHabitacion);
+        List<Reserva> reservas = pp.darReservasPorIdHabitacion(idHabitacion);
+        log.info ("Dar información de reservas por idHabitacion: " + reservas.size() + " reservas con ese idhab existentes");
+        return reservas;
+	}
+
+
+	/**
+	 * Encuentra la información básica de las reservas, según su idhab y los devuelve como VO
+	 * @param idHabitacion - El id de la habitacion a buscar
+	 * @return Una lista de reservas con su información básica, donde todos tienen el idhab buscado.
+	 * 	La lista vacía indica que no existen reservas con ese idhab
+	 */
+	public List<VOReserva> darVOReservasPorIdHabitacion (long idHabitacion)
+	{
+        log.info ("Generando VO de reservas por idhabitacion: " + idHabitacion);
+        List<VOReserva> voReservas = new LinkedList<VOReserva> ();
+       for (Reserva reser : pp.darReservasPorIdHabitacion(idHabitacion))
+       {
+          	voReservas.add (reser);
+       }
+       log.info ("Generando los VO de Reservas: " + voReservas.size() + " reservas existentes");
+      return voReservas;
+ 	}
+
+
+
+
+
+
+
+
+
+
+
 	
 	/* ****************************************************************
 	 * 			Métodos para administración
