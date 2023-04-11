@@ -4,8 +4,8 @@ CREATE SEQUENCE Alohandes;
 CREATE TABLE A_VinculadoUniandes (
     id NUMBER PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
-    vinculacion VARCHAR(50) NOT NULL,
-    CONSTRAINT CK_VinculadoUniandes_vinculacion CHECK (vinculacion IN ('Estudiante', 'Egresado', 'Empleado', 'Acudiente', 'Invitado'))
+    tipo VARCHAR(50) NOT NULL,
+    CONSTRAINT CK_VinculadoUniandes_vinculacion CHECK (tipo IN ('Estudiante', 'Egresado', 'Empleado', 'Acudiente', 'Invitado'))
 );
 
 
