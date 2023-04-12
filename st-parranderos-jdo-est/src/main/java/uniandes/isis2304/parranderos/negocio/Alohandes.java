@@ -386,7 +386,7 @@ public class Alohandes {
 	/*
 	 * **************************************************
 	 * RFC3 - MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE
-	 * ALOJAMIENTO REGISTRADAS
+	 * ALOJAMIENTO REGISTRADAS.
 	 * **************************************************
 	 */
 	public List<Object> darIndiceOcupacionOfertas() {

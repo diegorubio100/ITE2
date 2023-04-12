@@ -17,3 +17,47 @@ ORA-02292: restricción de integridad (SYSTEM.FK_ALQUILAMES_IDMIEMBRO) violada -
 17:09:26,003 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
 17:09:26,003 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
 17:09:26,035 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+17:13:48,528 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+17:13:48,528 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+17:13:48,544 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:26:33,096 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+19:26:33,096 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+19:26:33,118 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:26:35,922 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de VinculadoUniandes
+19:26:35,976 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Vinculados: 31 existentes
+19:26:50,936 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de VinculadoUniandes
+19:27:30,315 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+19:27:30,316 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+19:27:30,330 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:27:32,523 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de VinculadoUniandes
+19:27:32,581 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Vinculados: 30 existentes
+19:27:35,225 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitacion
+19:27:35,240 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitaciones: 30 existentes
+19:28:53,941 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Interfaz
+19:28:53,942 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se aplica configuración indicada en el archivo de configuración
+19:28:53,955 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazAlohandesApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:29:38,945 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Reserva idCliente, idHabitacion: 301
+19:29:39,043 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Reserva: Reserva [id=73, idCliente=30, idHabitacion=1, fechaReserva=2000-03-03 00:00:00.0, fechaCancelacionOportuna=2000-04-04 00:00:00.0, fechaCancelacion=null]
+19:29:53,417 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Reserva por id: 73
+19:29:53,423 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Reserva por id: 1 tuplas eliminadas
+19:30:14,456 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando VO de reservas por idhabitacion: 5
+19:30:14,462 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Reservas: 0 reservas existentes
+19:30:14,462 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Habitacion por id: 5
+19:30:14,472 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaAlohandes] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM A_HABITACION WHERE id = ?".
+ORA-02292: restricción de integridad (SYSTEM.FK_HABITACIONHOTEL_IDHABITACION) violada - registro secundario encontrado
+
+19:30:14,473 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Habitacion por id: -1 tuplas eliminadas
+19:30:18,017 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitacion
+19:30:18,029 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Habitaciones: 30 existentes
+19:30:53,076 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Habitacion: Hotel
+19:30:53,083 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Adicionando Hbaitacion: Habitacio [id=74, tipo=Hotel]
+19:31:23,368 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando VO de reservas por idhabitacion: 74
+19:31:23,371 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando los VO de Reservas: 0 reservas existentes
+19:31:23,371 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Habitacion por id: 74
+19:31:23,377 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Eliminando Habitacion por id: 1 tuplas eliminadas
+19:31:33,439 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando Dinero Recibido por Proveedor en fecha 11-04-2023
+19:31:33,536 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Terminando Dinero Recibido por Proveedor en fecha 11-04-2023
+19:31:37,244 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando Ofertas Mas Populares 
+19:31:37,254 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Terminando Ofertas Mas Populares 
+19:31:39,161 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Generando Indice Ocupacion Ofertas 
+19:31:39,176 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Alohandes] - Terminando Indice Ocupacion Ofertas 

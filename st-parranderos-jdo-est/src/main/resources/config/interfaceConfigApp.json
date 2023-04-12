@@ -47,7 +47,7 @@
 		  "options":
 			[
 				{
-					"label": "Adicionar",
+					"label": "RF4 Adicionar",
 					"event": "adicionarReserva"
 				},
 				{
@@ -55,11 +55,11 @@
 					"event": "listarReserva"
 				},
 				{
-					"label": "Borrar por Id",
+					"label": "RF5 Borrar por Id",
 					"event": "eliminarReservaPorId"
 				},
 				{
-					"label": "Buscar reserva por IdHabitacion",
+					"label": "RF6 Verificar reserva por IdHabitacion, luego borrar Hab",
 					"event": "buscarReservasPorIdHabitacion"
 				}
 
