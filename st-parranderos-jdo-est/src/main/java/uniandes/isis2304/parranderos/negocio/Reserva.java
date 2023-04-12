@@ -1,8 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
 import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Reserva implements VOReserva
 {

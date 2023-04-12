@@ -55,10 +55,6 @@ import uniandes.isis2304.parranderos.negocio.VOHabitacion;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 import uniandes.isis2304.parranderos.negocio.VOVinculadoUniandes;
 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.util.Vector;
 
 
 

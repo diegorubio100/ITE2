@@ -149,8 +149,7 @@ public class SQLHotel {
      * @return Una lista de objetos
      */
     public List<Object[]> darDineroProveedorActualCorrido(PersistenceManager pm, String fechaActual) {
-        String anio = fechaActual.split("-")[2];
-
+        
         String query = "";
         query += "SELECT * ";
         query += "FROM ";
