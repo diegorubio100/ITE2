@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 import uniandes.isis2304.parranderos.persistencia.PersistenciaAlohandes;
-import uniandes.isis2304.parranderos.persistencia.SQLHabitacion;
 
 public class Alohandes {
 	/*
